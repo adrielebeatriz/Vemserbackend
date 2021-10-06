@@ -3,64 +3,102 @@ package com.dbc;
 import java.util.Scanner;
 
 public class exercicio4 {
-    public static void main(String[] args) {
-        Scanner input = new Scanner(System.in);
+    public static void main(String[] args){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Estados disponiveis:1-Bahia, 2-São Paulo, 3-Rio de Janeiro");
+        System.out.println("Escolha um estado: ");
+        int escolha = scanner.nextInt();
+        scanner.nextLine();
+        int escolhaCidade = 0;
 
-        String estado1 = "Bahia";
-        String estado2 = "Rio de janeiro";
-        String estado3 = "São Paulo";
-        String cidade1 = "Salvadoe";
-        String cidade2 = "porto Seguro";
-        String cidade3 = "Rio de janeiro";
-        String cidade4 = "Nitéroi";
-        String cidade5 = "São Paulo";
-        String cidade6 = "GUARULHOS";
-        System.out.println("Escolha um dos estados:" +estado1+ estado2 + estado3);
+        switch (escolha) {
 
-        if (estado1){
-            System.out.println("")
+            case 1:
+                System.out.print("1- Salvador \n"+" 2-Porto Seguro\n");
+                System.out.println("Escolha a cidade: ");
+                escolhaCidade = scanner.nextInt();
+                scanner.nextLine();
+                if (escolhaCidade == 1) {
+                    System.out.println("Salvador: \n População 2.900.319 habitantes \nidh 0,670 \n Carnaval");
+                }
+                else if (escolhaCidade == 2) {
+                    System.out.println("Porto Seguro: \nPopulação de 152 529 habitantes \n idh: 0,676 \n Reveillon");
+                }
+                else {
+                    System.out.println("Digite uma opção válida.");
+                }
+                break;
+
+            case 2:
+                System.out.print("1- Rio de Janeiro \n "+" 2-Níteroi");
+                System.out.println("Escolha a cidade: ");
+                escolhaCidade = scanner.nextInt();
+                scanner.nextLine();
+                if (escolhaCidade == 1) {
+                    System.out.println("Rio de Janeiro:  6.320.446 habitantes\nIDH: 0,799 \n Carnaval");
+                }
+                else if (escolhaCidade == 2) {
+                    System.out.println("Niterói: 513 584 habitantes\nIDH: 0,886");
+                }
+                else {
+                    System.out.println("Digite uma opção válida.");
+                }
+                break;
+
+            case 3:
+                System.out.print("1- São Paulo\n "+" 2-Guarulhos");
+                System.out.println("Escolha a cidade: ");
+                escolhaCidade = scanner.nextInt();
+                scanner.nextLine();
+                if (escolhaCidade == 1) {
+                    System.out.println(" Sãp Paulo:12,33 milhões \n idh:0,783");
+                }
+                else if (escolhaCidade == 2) {
+                    System.out.println("Guarulhos:1,392 milhão \n idg:0,717.");
+                }
+                else {
+                    System.out.println("Digite uma opção válida.");
+                }
+                break;
+            default:
+                System.out.println("Digite uma opção válida.");
+                break;
 
         }
+
+
     }
-    }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
