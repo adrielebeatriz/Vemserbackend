@@ -1,25 +1,25 @@
+
+
+
 package com.dbc;
 
 import java.util.Scanner;
 
 public class exercicio5 {
-    public static void main(String[] args){
+    public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
-        System.out.println("Digite o valor da hora");
-        double valorhora = input.nextDouble();
 
-        System.out.println("Digite a qantidade de horas normais");
-        double qtdhoras = input.nextDouble();
+        int[] v = new int[20];
 
+        System.out.printf("Digite um numero ate 20" + "\n");
 
-        System.out.println("DSigite a uanidade de horas extras");
-        double qtdhoras50 = input.nextDouble();
+        for(int i = 0; i < v.length; i++){
+            System.out.printf("Número %d %n", i+1);
+            v[i] = input.nextInt();
+        }
 
-        System.out.println("Digite a quantidade de horas extras");
-        double qtdhoras100 = input.nextDouble();
-        double salariobruto = (qtdhoras * valorhora) + ((qtdhoras * valorhora)* 1.5)+
-                ((qtdhoras * valorhora)*2.0);
-        System.out.print("salario bruto: ");
-        System.out.println(salariobruto);
+        for(int i = v.length; i > 0 ; i--){
+            System.out.printf("Na posição "+ i +"o número é " + v[i-1]);
+        }
     }
 }

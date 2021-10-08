@@ -1,22 +1,30 @@
 package com.dbc;
+
+
+
 import java.util.Scanner;
 
 
 public class exercicio1 {
-        public static void main(String[] args) {
 
-            Scanner input = new Scanner(System.in);
-            System.out.println("Digite seu nome: ");
-            String nome = input.nextLine();
-            System.out.println("qual sua idade?");
-            int idade = input.nextInt();
-            input.nextLine();
-            System.out.println("qual sua cidade? \n");
-            String cidade = input.nextLine();
-            System.out.println("qual seu estado? \n");
-            String estado = input.nextLine();
-            System.out.printf("OLá, seu nome é " + nome +  " você tem " +idade+ " anos, é da cidade de " +cidade+ " Situada no estado da " +estado+ "\n");
 
+    public static void main(String[] args) {
+
+
+        Scanner input = new Scanner(System.in);
+
+        String nomeP;
+        double preco = 0;
+        double promocao = 0;
+        System.out.println("Escolha um produto: ");
+        nomeP = input.next();
+        System.out.println("Agora, fale o valor: ");
+        preco = input.nextDouble();
+        for (int i = 1; i <= 10; i++) {
+
+            promocao = preco - preco * 0.05 * i;
+            System.out.println( promocao +","+ promocao*i );
         }
+        System.out.println("O produto: " + nomeP + "   No varejo: " + preco + "   Com a oferta: "  + promocao);
     }
-
+}
