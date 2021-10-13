@@ -12,7 +12,7 @@ public class exercicio5 {
         double qtdhoras = input.nextDouble();
 
 
-        System.out.println("DSigite a uanidade de horas extras");
+        System.out.println("Digite a quantidade de horas extras");
         double qtdhoras50 = input.nextDouble();
 
         System.out.println("Digite a quantidade de horas extras");
