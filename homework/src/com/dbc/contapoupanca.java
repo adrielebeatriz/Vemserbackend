@@ -1,10 +1,11 @@
 package com.dbc;
 
-public  class contapoupanca extends conta implements Impressao {
+public abstract class contapoupanca extends conta implements Impressao {
     final static double JUROS_MENSAL = 1.01;
 
     public void creditarTaxa(){
-        setSaldo();
+        double JUROS_MENSAIS = 0;
+        setSaldo(getSaldo()*JUROS_MENSAIS);
     }
 
 
@@ -19,8 +20,15 @@ public  class contapoupanca extends conta implements Impressao {
 
     }
 
+
     @Override
-    public Boolean transferir(Double valor) {
-        return null;
+    public Boolean transferir(conta conta, Double valor) {
+        if (this.getSaldo() > valor && valor > 0) {
+            conta.setSaldo(conta.getSaldo() + valor);
+            this.setSaldo(this.getSaldo() - valor);
+            return true;
+        }
+        System.out.println("Saldo insuficente. Transferência máxima de: " + (getSaldo()));
+        return false;
     }
 }

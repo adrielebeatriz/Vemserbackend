@@ -31,8 +31,15 @@ public class contacorrente extends conta implements Impressao {
 
     @Override
     public Boolean transferir(Double valor) {
-        return null;
+        if (this.getSaldo() > valor && valor > 0) {
+            conta.setSaldo(conta.getSaldo() + valor);
+            this.setSaldo(this.getSaldo() - valor);
+            return true;
+        }
+        System.out.println("Saldo insuficente. Transferência máxima de: " + (getSaldo()));
+        return false;
     }
+
 
     @Override
     public void imprimir() {
@@ -40,6 +47,18 @@ public class contacorrente extends conta implements Impressao {
         System.out.printf("Saldo conta corrente: " +  getSaldo());
     }
 
-    public void setSaldo() {
+
+
+
+    @Override
+    public Boolean transferir(conta conta, Double valor) {
+        if (this.getSaldo() > valor && valor > 0) {
+            conta.setSaldo(conta.getSaldo() + valor);
+            this.setSaldo(this.getSaldo() - valor);
+            return true;
+        }
+        System.out.println("Saldo insuficente. Transferência máxima de: " + (getSaldo()));
+        return false;
+
     }
 }

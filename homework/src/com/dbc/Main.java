@@ -37,13 +37,13 @@ public class Main {
         contacorrente cc = new contacorrente();
         cc.setAgencia();
         cc.setNumeroconta();
-        cc.setSaldo();
+        cc.setSaldo(getSaldo() * JUROS_MENSAIS);
         cc.setChequeespecial(500.00);
 
         contapoupanca cp = new contapoupanca();
         cp.setNumeroconta();
         cp.setCliente();
-        cp.setSaldo();
+        cp.setSaldo(getSaldo() * JUROS_MENSAIS);
         cp.setAgencia();
 
 

@@ -1,11 +1,22 @@
 package com.dbc;
 
 public abstract class conta implements Movimentacao{
+    private  double saldo;
     private double valor;
-    private double saldo;
     private String cliente;
     private String numeroconta;
     private String agencia;
+
+    @Override
+    public boolean transferir(conta conta, double valor) {
+        if (this.getSaldo() > valor && valor > 0) {
+            conta.setSaldo(conta.getSaldo() + valor);
+            this.setSaldo(this.getSaldo() - valor);
+            return true;
+        }
+        System.out.println("Saldo insuficente. Transferência máxima de: " +(getSaldo()));
+        return false;
+    }
 
     public conta(double saldo) {
     }
@@ -42,7 +53,7 @@ public abstract class conta implements Movimentacao{
     public  double getSaldo() {
         return saldo;
     }
-    public void setSaldo(){
+    public  void setSaldo(double v){
         this.saldo = saldo;
     }
     public String getCliente(){
@@ -65,6 +76,8 @@ public abstract class conta implements Movimentacao{
     }
 
     public abstract Boolean sacar(Double saque);
+
+    public abstract Boolean transferir(Double valor);
 
     public abstract void imprimir();
 }
