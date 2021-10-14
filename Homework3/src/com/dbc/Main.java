@@ -2,6 +2,8 @@ package com.dbc;
 
 public class Main {
 
+    private static Object contacorrente;
+
     public static void main(String[] args) {
         cliente cliente1 = new cliente();
         cliente1.nome = "Daniel Silva";
@@ -12,15 +14,20 @@ public class Main {
         contadaniel.numeroConta = "232918-2";
         contadaniel.agencia = 496;
         contadaniel.saldo = 500;
-        contato contatodaniel1= new contato();
+        contato contatodaniel1 = new contato();
         contatodaniel1.descricao = "";
         contatodaniel1.telefone = "3127113736";
         contatodaniel1.tipo = 1;
 
+        contadaniel.depositar(100);
+
+        contadaniel.transferir(50);
+        contadaniel.imprimirContaCorrente();
+
         contato contatodaniel2 = new contato();
-        contatodaniel2 .descricao = "";
-        contatodaniel2 .telefone = "31991559237";
-        contatodaniel2 .tipo = 2;
+        contatodaniel2.descricao = "";
+        contatodaniel2.telefone = "31991559237";
+        contatodaniel2.tipo = 2;
 
         Endereco endereco1 = new Endereco();
         endereco1.tipo = 1;
@@ -41,5 +48,8 @@ public class Main {
         endereco2.cidade = "Salvador";
         endereco2.estado = "BA";
         endereco2.pais = "BR";
-}
+
+
+
+    }
 }

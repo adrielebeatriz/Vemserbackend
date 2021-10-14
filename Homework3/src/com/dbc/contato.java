@@ -9,7 +9,7 @@ public class contato {
     int tipo;
     public void imprimirContato(){
         System.out.println("Contato: " + telefone);
-        System.out.println("Descrição: " + descricao;
+        System.out.println("Descrição: " + descricao);
         System.out.println("Tipo de contato:"  + tipo);
     }
 }

@@ -7,35 +7,44 @@ public class contacorrente {
     double saldo;
     double chequeespecial;
 
-    public void imprimircontacorrente() {
-        System.out.printf("Cliente: " + numeroConta + "\n");
-        System.out.printf("Agência: " + agencia);
+
+    public void imprimirContaCorrente() {
+        cliente.imprimirClientes();
+
+        System.out.println("Agência: " + this.agencia
+                + " Conta: " + this.numeroConta
+                + " Saldo: " + this.saldo
+                + " Limite Cheque Especial: " + this.chequeespecial + "\n");
     }
 
-    public boolean sacar(double saque) {
-        if (saque > saldo) {
-            return false;
-        } else {
+    public boolean sacar (double valor) {
+        if (this.retornarSaldoComChequeEspecial() >= valor) {
+            saldo -= valor;
             return true;
         }
-    }
-    public boolean depositar(Double capital){
-        if(capital < 1){
-            return false;
-        }
-        else{
-            saldo += capital;
-            return true;
-        }
+        return false;
     }
 
-    public boolean  transferir(contacorrente conta, Double montante){
-        if(montante < 1 || montante > saldo){
-            return false;
+    public boolean depositar (double valor) {
+        if (valor > 0) {
+            saldo += valor;
+            return true;
         }
-        else{
-            sacar(montante);
-        }
-        return true;
+        return false;
     }
+
+    public double retornarSaldoComChequeEspecial() {
+        return (saldo + chequeespecial);
+    }
+
+    public boolean transferir(double valor) {
+        if (valor > 0 && this.saldo >= valor) {
+            this.depositar(valor);
+            this.sacar(valor);
+            return true;
+        }
+        return false;
+    }
+
+
 }
