@@ -2,7 +2,7 @@ package com.dbc;
 
 import java.util.Scanner;
 
-public class usuarios {
+public class usuarios<nome, idade, cidade> {
 
     String nome;
     int idade;
