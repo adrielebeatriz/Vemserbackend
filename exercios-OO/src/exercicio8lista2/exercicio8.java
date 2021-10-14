@@ -1,24 +1,23 @@
-package com.dbc;
+package exercicio8lista2;
 
 import java.util.Scanner;
 
-public class lista2exercicio8 {
+public class exercicio8 {
 
+    private int m[][] = new int[5][4];
 
-
-    int[][] m = new int[5][4];
-
-    int matr = 0;
-    int mp = 0;
-    int mt = 0;
-    int nf = 0;
-    int maiorNotaFinal = 0;
-    int matriculaComMaiorNotaFinal = 0;
-    int snf = 0;
-    int totmat = 0;
+    private int matr = 0;
+    private int mp = 0;
+    private int mt = 0;
+    private int nf = 0;
+    private int maiorNotaFinal = 0;
+    private int matriculaComMaiorNotaFinal = 0;
+    private int snf = 0;
+    private int totmat = 0;
 
     Scanner input = new Scanner(System.in);
-    public void coletarDados() {
+
+    public void lerMatriz() {
         for (int i = 0; i < 5; i++) {
             System.out.println("Numero da matrícula");
             m[i][0] = input.nextInt();
@@ -40,10 +39,10 @@ public class lista2exercicio8 {
 
             snf += m[i][3];
         }
-    }
-    public  void imprimirDaos() {
+
         System.out.print("matrícula com maior nota final: " + matriculaComMaiorNotaFinal);
         System.out.print("média das notas finais: " + snf / 5);
     }
+
 
 }

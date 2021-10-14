@@ -1,7 +1,8 @@
 package com.dbc;
 
 public abstract class conta implements Movimentacao{
-    private  double saldo;
+    private static double saldo;
+
     private double valor;
     private String cliente;
     private String numeroconta;
@@ -50,11 +51,11 @@ public abstract class conta implements Movimentacao{
     public void setValor(){
         this.valor = valor;
     }
-    public  double getSaldo() {
+    public double getSaldo() {
         return saldo;
     }
-    public  void setSaldo(double v){
-        this.saldo = saldo;
+    public void setSaldo(double v){
+        saldo = saldo;
     }
     public String getCliente(){
         return cliente= cliente;

@@ -1,17 +1,14 @@
-package com.dbc;
+package exercicio6lista1;
 
 import java.util.Scanner;
 
-public class tradutor {
-
-    String word;
-
-    Scanner input = new Scanner(System.in);
-
-    public void traduzirPalavra() {
-    System.out.println("Diga qual palavra será traduzida: ");
-    word = input.next();
-    word = word.toUpperCase();
+public class exercicio6 {
+    private String palavra;
+        Scanner input = new Scanner(System.in);
+    public void traduzir() {
+        System.out.println("Diga qual palavra será traduzida: ");
+        String word = input.next();
+        word = word.toUpperCase();
 
         switch (word) {
             case "CACHORRO":
@@ -51,14 +48,14 @@ public class tradutor {
                 break;
 
             case "HAPPY":
-                System.out.println("A tradução da palavra" + word + "em português é: Feliz  ");
+                System.out.println("A tradução da palavra" + word + "em português é: Feliz  " );
                 break;
 
             default:
                 System.out.println("Palavra invalida");
                 break;
+
         }
     }
-}
 
-}
+    }
