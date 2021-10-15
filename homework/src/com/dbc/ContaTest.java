@@ -18,11 +18,9 @@ import static junit.framework.TestCase.*;
 
         @Test
         public void deveTestarSaqueContaCorrenteSemSaldo(){
-            //setup
             ContaCorrente contaCorrenteClienteUm = new ContaCorrente();
             contaCorrenteClienteUm.setSaldo(1000);
             contaCorrenteClienteUm.setChequeEspecial(1000);
-            //act
             boolean sacar = contaCorrenteClienteUm.sacar(2500);
             double saldo = contaCorrenteClienteUm.getSaldo();
             assertFalse(sacar);
@@ -78,11 +76,9 @@ import static junit.framework.TestCase.*;
             contaCorrenteClienteUm.setSaldo(1000);
             ContaPoupanca contaPoupancaClienteDois = new ContaPoupanca();
             contaPoupancaClienteDois.setSaldo(2000);
-            //act
             boolean transferir = contaCorrenteClienteUm.transferir(contaPoupancaClienteDois,500);
             double saldo1 = contaCorrenteClienteUm.getSaldo();
             double saldo2 = contaPoupancaClienteDois.getSaldo();
-            //assert
             assertTrue(transferir);
             assertEquals(500,saldo1,0);
             assertEquals(2500,saldo2,0);
