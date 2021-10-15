@@ -41,18 +41,18 @@ public class Main {
         clienteUm.getContatos()[0] = new Contato();
         clienteUm.getContatos()[1] = new Contato();
 
-        ContaPagamento contaPagamentoClienteUm = new ContaPagamento();
-        contaPagamentoClienteUm.setCliente(clienteUm);
-        contaPagamentoClienteUm.setSaldo(5000);
-        contaPagamentoClienteUm.setNumeroConta("250");
-        contaPagamentoClienteUm.setAgencia("001");
+        ContaPagamento contaPagamentoCliente1 = new ContaPagamento();
+        contaPagamentoCliente1.setCliente(clienteUm);
+        contaPagamentoCliente1.setSaldo(5000);
+        contaPagamentoCliente1.setNumeroConta("250");
+        contaPagamentoCliente1.setAgencia("001");
 
-        ContaCorrente contaCorrenteClienteUm = new ContaCorrente();
-        contaCorrenteClienteUm.setCliente(clienteUm);
-        contaCorrenteClienteUm.setNumeroConta("504");
-        contaCorrenteClienteUm.setSaldo(5000);
-        contaCorrenteClienteUm.setAgencia("804");
-        contaCorrenteClienteUm.setChequeEspecial(5000);
+        ContaCorrente contaCorrenteCliente1 = new ContaCorrente();
+        contaCorrenteCliente1.setCliente(clienteUm);
+        contaCorrenteCliente1.setNumeroConta("504");
+        contaCorrenteCliente1.setSaldo(5000);
+        contaCorrenteCliente1.setAgencia("804");
+        contaCorrenteCliente1.setChequeEspecial(5000);
 
 
 
@@ -96,25 +96,25 @@ public class Main {
         clienteDois.getContatos()[0] = new Contato();
         clienteDois.getContatos()[1] = new Contato();
 
-        ContaPoupanca contaPoupancaClienteDois = new ContaPoupanca();
-        contaPoupancaClienteDois.setSaldo(5000);
-        contaPoupancaClienteDois.setCliente(clienteDois);
-        contaPoupancaClienteDois.setNumeroConta("505");
-        contaPoupancaClienteDois.setAgencia("325");
+        ContaPoupanca contaPoupancaCliente2 = new ContaPoupanca();
+        contaPoupancaCliente2.setSaldo(5000);
+        contaPoupancaCliente2.setCliente(clienteDois);
+        contaPoupancaCliente2.setNumeroConta("505");
+        contaPoupancaCliente2.setAgencia("325");
 
 
-        contaCorrenteClienteUm.transferir(contaPoupancaClienteDois,500);
+        contaCorrenteCliente1.transferir(contaPoupancaCliente2,500);
 
 
-        contaPagamentoClienteUm.sacar(250);
+        contaPagamentoCliente1.sacar(250);
 
 
 
-        contaPoupancaClienteDois.depositar(1000);
+        contaPoupancaCliente2.depositar(1000);
 
-        contaPagamentoClienteUm.imprimir();
-        contaCorrenteClienteUm.imprimir();
-        contaPoupancaClienteDois.imprimir();
+        contaPagamentoCliente1.imprimir();
+        contaCorrenteCliente1.imprimir();
+        contaPoupancaCliente2.imprimir();
 
 
     }
