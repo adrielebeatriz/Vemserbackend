@@ -3,7 +3,7 @@ id_estudante NUMBER NOT NULL,
 nome VARCHAR2(200) NOT NULL,
 data_nascimento DATE NOT NULL,
 Nr_matricula NUMBER(10) NOT NULL,
-ativo VARCHAR2(200) NOT NULL,
+ativo VARCHAR2(1) NOT NULL,
 PRIMARY KEY(id_estudante)
 );
 CREATE SEQUENCE seq_estudante
