@@ -26,7 +26,7 @@ public class ContatoController {
     }
 
     @GetMapping("/byidpessoa")
-    public List<Contato> listByIdPessoa(@RequestParam("idPessoa") Integer id) {
+    public List<Contato> listByIdPessoa(@PathVariable("idPessoa") Integer id) {
         return contatoService.listByIdPessoa(id);
     }
 
