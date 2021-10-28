@@ -2,6 +2,8 @@ package com.dbc.pessoaapi.controller;
 
 import com.dbc.pessoaapi.entity.Pessoa;
 import com.dbc.pessoaapi.service.PessoaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 @RequestMapping("/pessoa")
 public class PessoaController {
 
+    @Autowired
     private PessoaService pessoaService;
 
     public PessoaController() {
@@ -23,7 +26,12 @@ public class PessoaController {
 
     @PostMapping
     public Pessoa create(@RequestBody Pessoa pessoa) {
-        return pessoaService.create(pessoa);
+        try {
+            return pessoaService.create(pessoa);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return pessoa;
     }
 
     @GetMapping

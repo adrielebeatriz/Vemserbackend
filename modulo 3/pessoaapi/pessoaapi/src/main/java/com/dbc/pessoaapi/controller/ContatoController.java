@@ -2,18 +2,16 @@ package com.dbc.pessoaapi.controller;
 
 import com.dbc.pessoaapi.entity.Contato;
 import com.dbc.pessoaapi.service.ContatoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 @RestController
+
 @RequestMapping("/contato")
 public class ContatoController {
-
+    @Autowired
     private ContatoService contatoService;
-
-    public ContatoController() {
-        contatoService = new ContatoService();
-    }
 
     @PostMapping ("/{idPessoa}")
     public Contato create(@PathVariable ("idPessoa") Integer id,@RequestBody Contato contato) {
