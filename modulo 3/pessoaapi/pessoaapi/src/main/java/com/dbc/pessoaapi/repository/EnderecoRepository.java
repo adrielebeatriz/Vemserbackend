@@ -38,13 +38,11 @@ public class EnderecoRepository {
                 .collect(Collectors.toList());
     }
 
-    public Endereco create( Integer IdPessoa,Endereco endereco) {
-        endereco.setIdPessoa(IdPessoa);
+    public Endereco create(Endereco endereco) {
         endereco.setIdEndereco(COUNTER.incrementAndGet());
         listaEnderecos.add(endereco);
         return endereco;
     }
-
     public Endereco update(Integer idEndereco, Endereco enderecoAtual) throws Exception {
         Endereco enderecoSearch = listaEnderecos.stream()
                 .filter(endereco -> endereco.getIdEndereco().equals(idEndereco))
@@ -69,5 +67,6 @@ public class EnderecoRepository {
                 .orElseThrow(() -> new Exception("Endereço não localizado"));
         listaEnderecos.remove(enderecobackup);
     }
+
 
 }

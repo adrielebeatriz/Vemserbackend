@@ -3,13 +3,18 @@ package com.dbc.pessoaapi.controller;
 import com.dbc.pessoaapi.entity.Pessoa;
 import com.dbc.pessoaapi.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
 @RequestMapping("/pessoa")
+@Validated
 public class PessoaController {
 
     @Autowired
@@ -25,13 +30,9 @@ public class PessoaController {
     }
 
     @PostMapping
-    public Pessoa create(@RequestBody Pessoa pessoa) {
-        try {
-            return pessoaService.create(pessoa);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return pessoa;
+    public ResponseEntity<Pessoa> create(@RequestBody @Valid Pessoa pessoa) throws Exception {
+        Pessoa pessoaCriado = pessoaService.create(pessoa);
+        return new ResponseEntity<>(pessoaCriado, HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -46,13 +47,14 @@ public class PessoaController {
 
 
     @PutMapping("/{idPessoa}")
-    public Pessoa update(@PathVariable("idPessoa") Integer id,
-                         @RequestBody Pessoa pessoaAtualizar) throws Exception {
-        return pessoaService.update(id, pessoaAtualizar);
+    public ResponseEntity<Pessoa> update(@PathVariable("idPessoa") Integer id,
+                                         @Valid  @RequestBody  Pessoa pessoaAtualizar) throws Exception {
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
     @DeleteMapping("/{idPessoa}")
-    public void delete(@PathVariable("idPessoa") Integer id) throws Exception {
+    public void delete(@PathVariable("idPessoa")  @Valid Integer id) throws Exception {
         pessoaService.delete(id);
-    }
+
+}
 }

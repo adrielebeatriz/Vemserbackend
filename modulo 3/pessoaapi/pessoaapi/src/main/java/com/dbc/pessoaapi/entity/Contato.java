@@ -1,9 +1,17 @@
 package com.dbc.pessoaapi.entity;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Contato {
     private Integer idContato;
+    @NotNull
     private Integer idPessoa;
     private TipoContato tipoContato;
+    @NotEmpty
+    @Size(max = 13, message = "cpf deve conter 11 caracteres")
+    @NotEmpty
     private String numero;
     private String descricao;
 

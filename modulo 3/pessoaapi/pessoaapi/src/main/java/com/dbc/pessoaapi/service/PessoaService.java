@@ -27,7 +27,7 @@ public class PessoaService {
         }  if(StringUtils.isBlank(pessoa.getCpf())){
             throw new Exception("cpf não informada");
         } else if(pessoa.getCpf().length()!= 11){
-            throw new Exception("CPF DEVE SER  IGUAL A 11");
+            throw new Exception("CPF DEVE SER MAIOR OU IGUAL A 11");
         }
         return pessoaRepository.create(pessoa);
 
@@ -51,4 +51,5 @@ public class PessoaService {
     public List<Pessoa> listByName(String nome) {
         return pessoaRepository.listByName(nome);
     }
+
 }

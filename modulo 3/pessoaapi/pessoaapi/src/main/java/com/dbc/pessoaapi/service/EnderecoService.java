@@ -1,9 +1,7 @@
 package com.dbc.pessoaapi.service;
 
-import com.dbc.pessoaapi.entity.Contato;
 import com.dbc.pessoaapi.entity.Endereco;
-import com.dbc.pessoaapi.entity.Pessoa;
-import com.dbc.pessoaapi.repository.ContatoRepository;
+import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.repository.EnderecoRepository;
 import com.dbc.pessoaapi.repository.PessoaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +13,12 @@ import java.util.List;
 public class EnderecoService {
     @Autowired
     private EnderecoRepository enderecoRepository;
+    @Autowired
+    private PessoaRepository pessoaRepository;
 
     public List<Endereco> list() {
         return enderecoRepository.list();
     }
-
     public List<Endereco> listByIdEndereco(Integer idEndereco) {
         return enderecoRepository.listByIdEndereco(idEndereco);
     }
@@ -28,8 +27,10 @@ public class EnderecoService {
         return enderecoRepository.listByIdPessoa(idPessoa);
     }
 
-    public Endereco create(Integer idPessoa, Endereco endereco) {
-        return enderecoRepository.create(idPessoa, endereco);
+    public Endereco create(Integer idPessoa, Endereco endereco) throws RegraDeNegocioException {
+        pessoaRepository.getIdById(idPessoa);
+        endereco.setIdPessoa(idPessoa);
+        return enderecoRepository.create(endereco);
     }
 
     public Endereco update(Integer idEndereco, Endereco enderecoAtual) throws Exception {
@@ -40,4 +41,3 @@ public class EnderecoService {
         enderecoRepository.delete(idEndereco);
     }
 }
-

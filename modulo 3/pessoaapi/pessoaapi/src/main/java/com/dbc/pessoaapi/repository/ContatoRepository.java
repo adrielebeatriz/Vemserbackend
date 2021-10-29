@@ -5,6 +5,7 @@ package com.dbc.pessoaapi.repository;
 import com.dbc.pessoaapi.entity.Contato;
 import com.dbc.pessoaapi.entity.Pessoa;
 import com.dbc.pessoaapi.entity.TipoContato;
+import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import org.springframework.stereotype.Repository;
 
 
@@ -27,6 +28,7 @@ public class ContatoRepository {
     }
 
     public Contato create( Integer IdPessoa,Contato contato) {
+
         contato.setIdPessoa(IdPessoa);
         contato.setIdContato(COUNTER.incrementAndGet());
         listaContatos.add(contato);
@@ -49,7 +51,7 @@ public class ContatoRepository {
         Contato contatobackup = listaContatos.stream()
                 .filter(contato -> contato.getIdContato().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Contato não  foi encontrado"));
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não  foi encontrado"));
         contatobackup.setIdPessoa(contatoAtualizar.getIdPessoa());
         contatobackup.setTipoContato(contatoAtualizar.getTipoContato());
         contatobackup.setNumero(contatoAtualizar.getNumero());
@@ -61,7 +63,7 @@ public class ContatoRepository {
         Contato contatobackup = listaContatos.stream()
                 .filter(contato -> contato.getIdContato().equals(id))
                 .findFirst()
-                .orElseThrow(() -> new Exception("Contato não encontrado"));
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado"));
         listaContatos.remove(contatobackup);
     }
 }
