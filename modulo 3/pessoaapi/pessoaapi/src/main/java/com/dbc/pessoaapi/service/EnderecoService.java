@@ -1,6 +1,6 @@
 package com.dbc.pessoaapi.service;
 
-import com.dbc.pessoaapi.entity.Endereco;
+import com.dbc.pessoaapi.entity.EnderecoEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.repository.EnderecoRepository;
 import com.dbc.pessoaapi.repository.PessoaRepository;
@@ -16,25 +16,25 @@ public class EnderecoService {
     @Autowired
     private PessoaRepository pessoaRepository;
 
-    public List<Endereco> list() {
+    public List<EnderecoEntity> list() {
         return enderecoRepository.list();
     }
-    public List<Endereco> listByIdEndereco(Integer idEndereco) {
+    public List<EnderecoEntity> listByIdEndereco(Integer idEndereco) {
         return enderecoRepository.listByIdEndereco(idEndereco);
     }
 
-    public List<Endereco> listByIdPessoa(Integer idPessoa) {
+    public List<EnderecoEntity> listByIdPessoa(Integer idPessoa) {
         return enderecoRepository.listByIdPessoa(idPessoa);
     }
 
-    public Endereco create(Integer idPessoa, Endereco endereco) throws RegraDeNegocioException {
+    public EnderecoEntity create(Integer idPessoa, EnderecoEntity enderecoEntity) throws RegraDeNegocioException {
         pessoaRepository.getIdById(idPessoa);
-        endereco.setIdPessoa(idPessoa);
-        return enderecoRepository.create(endereco);
+        enderecoEntity.setIdPessoa(idPessoa);
+        return enderecoRepository.create(enderecoEntity);
     }
 
-    public Endereco update(Integer idEndereco, Endereco enderecoAtual) throws Exception {
-        return enderecoRepository.update(idEndereco, enderecoAtual);
+    public EnderecoEntity update(Integer idEndereco, EnderecoEntity enderecoEntityAtual) throws Exception {
+        return enderecoRepository.update(idEndereco, enderecoEntityAtual);
     }
 
     public void delete(Integer idEndereco) throws Exception {

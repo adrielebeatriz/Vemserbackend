@@ -1,55 +1,52 @@
 package com.dbc.pessoaapi.service;
+import com.dbc.pessoaapi.DTO.PessoaDTO;
+import com.dbc.pessoaapi.dto.PessoaCreateDTO;
+import com.dbc.pessoaapi.entity.PessoaEntity;
 
-import com.dbc.pessoaapi.entity.Pessoa;
 import com.dbc.pessoaapi.repository.PessoaRepository;
-import org.apache.commons.lang3.ObjectUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
+@RequiredArgsConstructor
 public class PessoaService {
-    @Autowired
-    private PessoaRepository pessoaRepository;
 
-    public PessoaService(){
-        pessoaRepository = new PessoaRepository();
+    private  final PessoaRepository pessoaRepository;
+    private final ObjectMapper objectMapper;
+
+    public PessoaDTO create(PessoaCreateDTO pessoaCreateDTO) throws Exception {
+        PessoaEntity pessoaEntity = objectMapper.convertValue(pessoaCreateDTO, PessoaEntity.class);
+        PessoaEntity pessoaCriada = pessoaRepository.create(pessoaEntity);
+
+        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaCriada, PessoaDTO.class);
+        return pessoaDTO;
+    }
+    public List<PessoaDTO> list() {
+        return pessoaRepository.list().stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .collect(Collectors.toList());
     }
 
-    public Pessoa create(Pessoa pessoa) throws Exception{
-        if (StringUtils.isBlank(pessoa.getNome())){
-            throw new Exception("NOME  NÃO INFORMADO");
-
-        }
-        if(ObjectUtils.isEmpty(pessoa.getDataNascimento())){
-                throw  new Exception("Não pode inserir pessoa sem data de nascimento");
-        }  if(StringUtils.isBlank(pessoa.getCpf())){
-            throw new Exception("cpf não informada");
-        } else if(pessoa.getCpf().length()!= 11){
-            throw new Exception("CPF DEVE SER MAIOR OU IGUAL A 11");
-        }
-        return pessoaRepository.create(pessoa);
-
-
-
-    }
-
-    public List<Pessoa> list(){
-        return pessoaRepository.list();
-    }
-
-    public Pessoa update(Integer id,
-                         Pessoa pessoaAtualizar) throws Exception {
-        return pessoaRepository.update(id, pessoaAtualizar);
+    public PessoaDTO update(Integer id,
+                            PessoaCreateDTO pessoaCreateDTO) throws Exception {
+        PessoaEntity entity = objectMapper.convertValue(pessoaCreateDTO, PessoaEntity.class);
+        PessoaEntity update = pessoaRepository.update(id, entity);
+        PessoaDTO dto = objectMapper.convertValue(update, PessoaDTO.class);
+        return dto;
     }
 
     public void delete(Integer id) throws Exception {
-         pessoaRepository.delete(id);
+        pessoaRepository.delete(id);
     }
 
-    public List<Pessoa> listByName(String nome) {
-        return pessoaRepository.listByName(nome);
+    public List<PessoaDTO> listByName(String nome) {
+        return pessoaRepository.listByName(nome).stream()
+                .map(pessoa -> objectMapper.convertValue(pessoa, PessoaDTO.class))
+                .collect(Collectors.toList());
     }
-
 }
