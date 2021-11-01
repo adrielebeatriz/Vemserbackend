@@ -43,10 +43,6 @@ public class ContatoService {
         ContatoDTO contatoDTO = objectMapper.convertValue(contatoCriado,ContatoDTO.class);
         return contatoDTO;
 
-//        PessoaEntity pessoaEntity = objectMapper.convertValue(pessoaCreateDTO,PessoaEntity.class);
-//        PessoaEntity pessoaCriada  = pessoaRepository.create(pessoaEntity);
-//        PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaCriada,PessoaDTO.class);
-//        return pessoaDTO;
     }
 
     public ContatoDTO update(Integer idContato, ContatoCreateDTO contatoCreateDTO) throws Exception {
