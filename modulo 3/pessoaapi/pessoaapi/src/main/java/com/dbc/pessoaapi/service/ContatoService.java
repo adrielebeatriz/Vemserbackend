@@ -36,7 +36,7 @@ public class ContatoService {
                 .collect(Collectors.toList());
     }
 
-    public ContatoDTO create(Integer idPessoa, ContatoCreateDTO contatoCreateDTO) throws Exception {
+    public ContatoDTO create(Integer idPessoa, ContatoEntity contatoCreateDTO) throws Exception {
         ContatoEntity contatoEntity1 = objectMapper.convertValue(contatoCreateDTO,ContatoEntity.class);
         pessoaRepository.getIdById(idPessoa);
         ContatoEntity contatoCriado = contatoRepository.create(idPessoa, contatoEntity1);

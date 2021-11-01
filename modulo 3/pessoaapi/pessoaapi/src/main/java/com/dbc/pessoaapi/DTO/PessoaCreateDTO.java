@@ -1,4 +1,4 @@
-package com.dbc.pessoaapi.dto;
+package com.dbc.pessoaapi.DTO;
 
 import lombok.Data;
 import lombok.ToString;
@@ -22,4 +22,5 @@ public class PessoaCreateDTO {
     @Size(max = 11, min = 11, message = "cpf deve conter 11 caracteres")
     @NotNull
     private String cpf;
+    private String email;
 }

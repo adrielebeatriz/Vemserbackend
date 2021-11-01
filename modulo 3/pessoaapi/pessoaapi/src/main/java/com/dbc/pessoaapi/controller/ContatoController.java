@@ -19,7 +19,7 @@ public class ContatoController {
     private ContatoService contatoService;
 
     @PostMapping ("/{idPessoa}")
-    public ContatoDTO create(@PathVariable ("idPessoa") Integer id, @RequestBody ContatoEntity contatoEntity) throws RegraDeNegocioException {
+    public ContatoDTO create(@PathVariable ("idPessoa") Integer id, @RequestBody ContatoEntity contatoEntity) throws Exception {
        log.info("Contato criado");
         ContatoDTO contatonew = contatoService.create(id, contatoEntity);
         log.info("Contatao criado com sucesso");
@@ -33,7 +33,7 @@ public class ContatoController {
 
     @GetMapping("/byidpessoa")
     public List<ContatoDTO> listByIdPessoa(@PathVariable("idPessoa") Integer id) throws RegraDeNegocioException {
-        return contatoService.listByIdPessoa(id);
+        return contatoService.listPorIdPessoa(id);
     }
 
 

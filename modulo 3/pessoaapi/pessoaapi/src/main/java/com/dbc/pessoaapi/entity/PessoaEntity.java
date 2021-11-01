@@ -1,6 +1,6 @@
 package com.dbc.pessoaapi.entity;
 
-import com.dbc.pessoaapi.dto.PessoaCreateDTO;
+import com.dbc.pessoaapi.DTO.PessoaCreateDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,4 +29,5 @@ public class PessoaEntity extends @Valid PessoaCreateDTO {
     private String nome;
     private LocalDate dataNascimento;
     private String cpf;
+    private String  email;
 }

@@ -1,7 +1,8 @@
 package com.dbc.pessoaapi.controller;
 
+import com.dbc.pessoaapi.DTO.PessoaCreateDTO;
 import com.dbc.pessoaapi.DTO.PessoaDTO;
-import com.dbc.pessoaapi.dto.PessoaCreateDTO;
+
 import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.service.PessoaService;
 import lombok.RequiredArgsConstructor;
@@ -41,6 +42,12 @@ public class PessoaController {
         return pessoaEntityCriado;
     }
 
+    @GetMapping
+    public List<PessoaDTO> list() {
+
+        return pessoaService.list();
+    }
+
     @GetMapping("/byname")
     public List<PessoaDTO> listByName(@RequestParam("nome") @NotEmpty(message = "nome da pessoa não informado") String nome) {
         return pessoaService.listByName(nome);
@@ -55,9 +62,9 @@ public class PessoaController {
         return pessoaService.update(id, pessoaCreateDTO);
     }
     @DeleteMapping("/{idPessoa}")
-    public void delete(@PathVariable("idPessoa")  @Valid Integer id) throws Exception {
+    public void delete(@PathVariable("idPessoa")  @Valid Integer idPessoa) throws Exception {
         log.info("deletando pessoa");
-        pessoaService.delete(id);
+        pessoaService.delete(idPessoa);
         log.info("pessoa deletada com sucesso");
 
 }
