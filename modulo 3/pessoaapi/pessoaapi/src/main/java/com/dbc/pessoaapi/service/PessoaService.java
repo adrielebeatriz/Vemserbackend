@@ -63,7 +63,7 @@ public class PessoaService {
     }
 
     public void delete(Integer id) throws Exception {
-        pessoaRepository.delete(id);
+
         PessoaEntity pessoarecuperada = pessoaRepository.getIdById(id);
         pessoaRepository.delete(pessoarecuperada.getIdPessoa());
         enviarEmailComTemplateNoDelete(pessoarecuperada);
@@ -113,7 +113,7 @@ public class PessoaService {
 
         Template template = configuration.getTemplate("email-template2.ftl");
         Map<String, Object> dados = new HashMap<>();
-        dados.put("nome", pessoaEntity.getNome());
+        dados.put("nomeUsuario", pessoaEntity.getNome());
         dados.put("email", remetente);
         String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
 
