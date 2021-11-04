@@ -20,6 +20,7 @@ public interface DadosPessoaisClient {
 
 
     @RequestLine("POST /dados-pessoais")
-    DadosPessoaisDTO post(DadosPessoaisDTO dadosPessoaisDTO);
+    DadosPessoaisDTO create(DadosPessoaisDTO dadosPessoaisDTO);
+
 
 }
