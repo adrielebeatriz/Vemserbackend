@@ -1,6 +1,7 @@
 package com.dbc.pessoaapi.DTO;
 
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import javax.validation.constraints.*;
@@ -17,6 +18,7 @@ public class ContatoCreateDTO {
     @NotNull
     @NotEmpty
     @Size(max = 13, message = "Não pode possuir mais que 13 caracteres")
+    @ApiModelProperty(value  = "numero para contato")
     private String numero;
 
     @NotNull

@@ -43,7 +43,7 @@ public class PessoaService {
         PessoaEntity pessoaEntity = objectMapper.convertValue(pessoaCreateDTO, PessoaEntity.class);
         PessoaEntity pessoaCriada = pessoaRepository.create(pessoaEntity);
         PessoaDTO pessoaDTO = objectMapper.convertValue(pessoaCriada, PessoaDTO.class);
-        enviarEmailSimples(pessoaDTO);
+        //enviarEmailSimples(pessoaDTO);
         return pessoaDTO;
 
     }
@@ -58,7 +58,7 @@ public class PessoaService {
         PessoaEntity entity = objectMapper.convertValue(pessoaCreateDTO, PessoaEntity.class);
         PessoaEntity update = pessoaRepository.update(id, entity);
         PessoaDTO dto = objectMapper.convertValue(update, PessoaDTO.class);
-        enviarEmailComTemplate(dto);
+       // enviarEmailComTemplate(dto);
         return dto;
     }
 
@@ -66,7 +66,7 @@ public class PessoaService {
 
         PessoaEntity pessoarecuperada = pessoaRepository.getIdById(id);
         pessoaRepository.delete(pessoarecuperada.getIdPessoa());
-        enviarEmailComTemplateNoDelete(pessoarecuperada);
+        //enviarEmailComTemplateNoDelete(pessoarecuperada);
 
     }
 

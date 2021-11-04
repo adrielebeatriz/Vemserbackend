@@ -1,5 +1,7 @@
 package com.dbc.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import java.util.Arrays;
 
 public enum TipoEndereco {
@@ -22,4 +24,6 @@ public enum TipoEndereco {
                 .findFirst()
                 .get();
     }
+
+
 }

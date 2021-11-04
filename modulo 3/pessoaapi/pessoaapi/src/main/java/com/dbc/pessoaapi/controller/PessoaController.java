@@ -5,6 +5,9 @@ import com.dbc.pessoaapi.DTO.PessoaDTO;
 
 import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.service.PessoaService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,6 +37,12 @@ public class PessoaController {
         return "Hello world!";
     }
 
+    @ApiOperation( value = "Criar uma nova pessoa")
+    @ApiResponses( value = {
+            @ApiResponse(code =200, message = "Pessoa criada com sucesso"),
+            @ApiResponse( code = 400, message = "Pessoa não encontrada")
+    })
+
     @PostMapping
     public PessoaDTO create(@RequestBody @Valid PessoaCreateDTO pessoaDTO) throws Exception {
         log.info("iniciando criação da pessoa");
@@ -41,13 +50,21 @@ public class PessoaController {
         log.info("pessoa criada com sucesso!");
         return pessoaEntityCriado;
     }
-
+    @ApiOperation( value = "Lista de pessoas")
+    @ApiResponses( value = {
+            @ApiResponse(code =200, message = "Pessoas listadas com sucesso"),
+            @ApiResponse( code = 400, message = "Pessoas não encontradas")
+    })
     @GetMapping
     public List<PessoaDTO> list() {
 
         return pessoaService.list();
     }
-
+    @ApiOperation( value = "Listagem de pessoas por nome")
+    @ApiResponses( value = {
+            @ApiResponse(code =200, message = "Pessoas listadas com sucesso"),
+            @ApiResponse( code = 400, message = "Pessoas não encontradas")
+    })
     @GetMapping("/byname")
     public List<PessoaDTO> listByName(@RequestParam("nome") @NotEmpty(message = "nome da pessoa não informado") String nome) {
         return pessoaService.listByName(nome);
@@ -55,12 +72,21 @@ public class PessoaController {
 
 
 
-
+    @ApiOperation( value = "Atualizar pessoas por id")
+    @ApiResponses( value = {
+            @ApiResponse(code =200, message = "Pessoas atualizadas com sucesso"),
+            @ApiResponse( code = 400, message = "Pessoas não encontradas")
+    })
     @PutMapping("/{idPessoa}")
     public PessoaDTO update(@PathVariable("idPessoa") Integer id,
                             @RequestBody @Valid PessoaCreateDTO pessoaCreateDTO) throws Exception {
         return pessoaService.update(id, pessoaCreateDTO);
     }
+    @ApiOperation( value = "deletar  pessoas por id")
+    @ApiResponses( value = {
+            @ApiResponse(code =200, message = "Pessoas deletadas  com sucesso"),
+            @ApiResponse( code = 400, message = "Pessoas não encontradas")
+    })
     @DeleteMapping("/{idPessoa}")
     public void delete(@PathVariable("idPessoa")  @Valid Integer idPessoa) throws Exception {
         log.info("deletando pessoa");
