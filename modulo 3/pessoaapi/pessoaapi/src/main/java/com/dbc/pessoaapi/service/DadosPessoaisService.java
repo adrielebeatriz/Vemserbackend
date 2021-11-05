@@ -33,4 +33,12 @@ public class DadosPessoaisService {
         return dadosPessoaisClient.getPorCpf(cpf);
     }
 
+    public DadosPessoaisDTO delete(String cpf) throws Exception {
+        return dadosPessoaisClient.delete(cpf);
+    }
+
+    public DadosPessoaisDTO update(String cpf, DadosPessoaisDTO dadosPessoaisDTO) {
+        return dadosPessoaisClient.update(cpf, dadosPessoaisDTO);
+    }
+
 }

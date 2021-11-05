@@ -37,4 +37,13 @@ public class DadosPessoaisController {
     public DadosPessoaisDTO getPorCpf(@PathVariable("cpf") String cpf) throws Exception {
         return dadosPessoaisService.getPorCpf(cpf);
     }
+    @DeleteMapping("/{cpf}")
+    public DadosPessoaisDTO delete(@PathVariable("cpf") String cpf) throws Exception {
+        return dadosPessoaisService.delete(cpf);
+    }
+
+    @PutMapping("/{cpf}")
+    public DadosPessoaisDTO update(@PathVariable("cpf") String cpf, DadosPessoaisDTO dadosPessoaisDTO) {
+        return dadosPessoaisService.update(cpf, dadosPessoaisDTO);
+    }
 }
