@@ -11,6 +11,7 @@ import com.dbc.pessoaapi.service.ContatoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -63,5 +64,12 @@ public class ContatoController {
     public List<ContatoEntity> contatobyType(@RequestParam("tipoContato") TipoContato tipoContato) {
         return contatoRepository.contatoByType(tipoContato);
     }
+
+
+    @GetMapping("/contato-por-id-pessoa")
+    public List<ContatoEntity> contatoPotIdPessoa(@RequestParam("idPessoa") Integer idPessoa){
+        return contatoRepository.contatoPotIdPessoa(idPessoa);
+    }
+
 
 }

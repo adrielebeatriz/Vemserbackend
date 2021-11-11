@@ -9,6 +9,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class EnderecoPessoaDTO extends PessoaDTO{
-    private List<EnderecoDTO> listaEnderecos;
+public class PessoaEnderecoDTO extends PessoaDTO{
+    List<EnderecoDTO> enderecoDTOS;
 }

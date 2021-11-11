@@ -24,7 +24,13 @@ import java.util.stream.Collectors;
 @Repository
 public interface ContatoRepository extends JpaRepository<ContatoEntity, Integer> {
 
-    @Query("select c from CONTATO c where c.tipoContato = :tipoContato")
+    @Query("select c from CONTATO c " +
+            "where c.tipoContato = :tipoContato")
     List<ContatoEntity> contatoByType(TipoContato tipoContato);
+
+    @Query(value = "select * from CONTATO c" +
+            " WHERE c.ID_PESSOA = ?1",nativeQuery = true)
+
+    List<ContatoEntity> contatoPotIdPessoa(Integer idContato);
 
 }

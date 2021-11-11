@@ -98,4 +98,9 @@ public class EnderecoController {
     public List<EnderecoEntity> enderecoCountryCity(@RequestParam("pais") String pais,@RequestParam("cidade") String cidade){
         return enderecoRepository.enderecoCountryCity(pais, cidade);
     }
+
+    @GetMapping("/endereco-sem-complemento")
+    public List<EnderecoEntity> enderecoSemComplemento(){
+        return enderecoRepository.enderecoSemComplemento();
+    }
     }

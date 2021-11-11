@@ -1,10 +1,11 @@
 package com.dbc.pessoaapi.controller;
 
 import com.dbc.pessoaapi.dto.ContatoPessoaDTO;
-import com.dbc.pessoaapi.dto.EnderecoPessoaDTO;
+import com.dbc.pessoaapi.dto.PessoaEnderecoDTO;
 import com.dbc.pessoaapi.dto.PessoaCreateDTO;
 import com.dbc.pessoaapi.dto.PessoaDTO;
 import com.dbc.pessoaapi.entity.PessoaEntity;
+import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.repository.PessoaRepository;
 import com.dbc.pessoaapi.service.EnderecoService;
 import com.dbc.pessoaapi.service.PessoaService;
@@ -114,12 +115,52 @@ public class PessoaController {
     }
 
     @GetMapping("/lista-by-endereco")
-    public List<EnderecoPessoaDTO> getByEndereco() {
+    public List<PessoaEnderecoDTO> getByEndereco() {
         return pessoaService.getByEndereco();
     }
-
+    @GetMapping("/pessoa-contato")
+    public List<ContatoPessoaDTO>listarPessoaComContatos(@RequestParam(required = false) Integer idPessoa) throws RegraDeNegocioException {
+        if (idPessoa == null) {
+            return pessoaService.listarContatoPessoaDTO(idPessoa);
+        }
+        return pessoaService.listarContatoPessoaDTO(idPessoa);
+    }
+    @GetMapping("/pessoa-endereco")
+    public List<PessoaEnderecoDTO>listarPessoaComEnderecos(@RequestParam(required = false) Integer idPessoa) throws RegraDeNegocioException {
+        if (idPessoa == null) {
+            return pessoaService.listarPessoaComEnderecos(idPessoa);
+        }
+        return pessoaService.listarPessoaComEnderecos(idPessoa);
+    }
     @GetMapping("/pessoa-com-endereco")
     public List<PessoaEntity> EnderecoPessoa() {
         return pessoaRepository.EnderecoPessoa();
+    }
+
+    @GetMapping("/pessoa-sem-endereco")
+    public List<PessoaEntity> pessoaSemEndereco() {
+        return pessoaRepository.pessoaSemEndereco();
+    }
+    @GetMapping("/pessoa-sem-endereco-query-nativa")
+    public List<PessoaEntity> pessoaSemEnderecos(){
+        return pessoaRepository.pessoaSemEndereco();
+    }
+
+    @GetMapping("/pessoa-contato")
+    public List<ContatoPessoaDTO>listaContatoPessoaDTO(@RequestParam(required = false) Integer idPessoa) throws RegraDeNegocioException {
+        if (idPessoa == null) {
+            return pessoaService.listarContatoPessoaDTO(idPessoa);
+        }
+        return pessoaService.listarContatoPessoaDTO(idPessoa);
+    }
+    @GetMapping("/pessoa-que-possuem-endereco")
+    public List<PessoaEntity> pessoaQuePossuiEndereco() {
+        return pessoaRepository.pessoaQuePossuemEndereco();
+    }
+
+    @GetMapping("/pessoa-por-dataDeNascimento")
+    public List<PessoaEntity> PessoaPorDataNasci(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateInicial,
+                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate dateFinal) {
+        return pessoaRepository.pessoaPorDataNasc(dateInicial,dateFinal);
     }
 }

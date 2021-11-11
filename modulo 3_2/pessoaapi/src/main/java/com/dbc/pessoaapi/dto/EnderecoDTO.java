@@ -10,5 +10,6 @@ public class EnderecoDTO extends EnderecoCreateDTO {
 
     @ApiModelProperty(value = "ID")
     private Integer idEndereco;
+    private Integer idPessoa;
 
 }
