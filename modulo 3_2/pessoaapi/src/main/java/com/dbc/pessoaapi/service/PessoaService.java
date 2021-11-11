@@ -1,7 +1,7 @@
 package com.dbc.pessoaapi.service;
 
-import com.dbc.pessoaapi.dto.PessoaCreateDTO;
-import com.dbc.pessoaapi.dto.PessoaDTO;
+import com.dbc.pessoaapi.dto.*;
+import com.dbc.pessoaapi.entity.EnderecoEntity;
 import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.repository.PessoaRepository;
@@ -66,7 +66,34 @@ public class PessoaService {
     }
 
 
+    public List<ContatoPessoaDTO> getByContato(){
+        return pessoaRepository.findAll().stream()
+                .map(x -> {
+                    ContatoPessoaDTO contatoPessoaDTO = objectMapper.convertValue(x, ContatoPessoaDTO.class);
+                    contatoPessoaDTO.setContato(x.getContatos().stream()
+                            .map(contato -> {
+                                ContatoDTO contatoDTO = objectMapper.convertValue(contato, ContatoDTO.class);
+                                return contatoDTO;
+                            })
+                            .collect(Collectors.toList()));
+                    return contatoPessoaDTO;
+                })
+                .collect(Collectors.toList());
+    }
 
-
+    public List<EnderecoPessoaDTO> getByEndereco(){
+        return pessoaRepository.findAll().stream()
+                .map(x -> {
+                    EnderecoPessoaDTO pessoaEnderecoDTO = objectMapper.convertValue(x, EnderecoPessoaDTO.class);
+                    pessoaEnderecoDTO.setListaEnderecos(x.getEnderecos().stream()
+                            .map(endereco -> {
+                                EnderecoDTO enderecoDTO = objectMapper.convertValue(endereco, EnderecoDTO.class);
+                                return enderecoDTO;
+                            })
+                            .collect(Collectors.toList()));
+                    return pessoaEnderecoDTO;
+                })
+                .collect(Collectors.toList());
+    }
 
 }

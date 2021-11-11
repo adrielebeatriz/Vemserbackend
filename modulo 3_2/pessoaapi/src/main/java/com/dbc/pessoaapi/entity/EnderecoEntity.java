@@ -1,18 +1,18 @@
 package com.dbc.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.util.Set;
 
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "ENDERECO_PESSOA")
 public class EnderecoEntity {
 
@@ -48,4 +48,7 @@ public class EnderecoEntity {
     @Column(name = "pais")
     private String pais;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "enderecos")
+    private Set<PessoaEntity> pessoas;
 }

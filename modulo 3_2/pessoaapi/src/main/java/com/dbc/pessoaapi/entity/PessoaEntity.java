@@ -1,19 +1,19 @@
 package com.dbc.pessoaapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 
 @Getter
 @Setter
-@ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity(name = "PESSOA")
-public class PessoaEntity {
+public class PessoaEntity   {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PESSOA_SEQ")
@@ -32,6 +32,18 @@ public class PessoaEntity {
 
     @Column(name = "email")
     private String email;
+    @JsonIgnore
+    @OneToMany(mappedBy = "pessoaEntity", fetch = FetchType.LAZY)
+    private Set<ContatoEntity> contatos;
+
+    @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "Pessoa_x_Pessoa_Endereco",
+            joinColumns = @JoinColumn(name = "id_pessoa"),
+            inverseJoinColumns = @JoinColumn(name = "id_endereco")
+    )
+    private Set<EnderecoEntity> enderecos;
 
 
 }

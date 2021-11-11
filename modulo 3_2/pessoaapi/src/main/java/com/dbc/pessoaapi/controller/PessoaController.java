@@ -1,9 +1,12 @@
 package com.dbc.pessoaapi.controller;
 
+import com.dbc.pessoaapi.dto.ContatoPessoaDTO;
+import com.dbc.pessoaapi.dto.EnderecoPessoaDTO;
 import com.dbc.pessoaapi.dto.PessoaCreateDTO;
 import com.dbc.pessoaapi.dto.PessoaDTO;
 import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.repository.PessoaRepository;
+import com.dbc.pessoaapi.service.EnderecoService;
 import com.dbc.pessoaapi.service.PessoaService;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -16,7 +19,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,6 +30,7 @@ public class PessoaController {
 
     private final PessoaService pessoaService;
     private final PessoaRepository pessoaRepository;
+    private final EnderecoService enderecoService;
 
     @ApiOperation(value = "Cria uma nova pessoa")
     @ApiResponses(value = {
@@ -66,7 +69,7 @@ public class PessoaController {
     })
     @PutMapping("/{idPessoa}")
     public PessoaDTO update(@PathVariable("idPessoa") Integer id,
-                               @RequestBody @Valid PessoaCreateDTO pessoaCreateDTO) throws Exception {
+                            @RequestBody @Valid PessoaCreateDTO pessoaCreateDTO) throws Exception {
         log.info("Iniciando atualização de pessoa");
         PessoaDTO pessoaAtualizada = pessoaService.update(id, pessoaCreateDTO);
         log.info("Pessoa atualizada com sucesso");
@@ -83,16 +86,40 @@ public class PessoaController {
     public void delete(@PathVariable("idPessoa") Integer id) throws Exception {
         pessoaService.delete(id);
     }
+
     @GetMapping("/find-by-nome-containing")
-    public  List<PessoaEntity> findByNomeContainingIgnoreCase(@RequestParam String nome){
-        return  pessoaRepository.findByNomeContainingIgnoreCase(nome);
+    public List<PessoaEntity> findByNomeContainingIgnoreCase(@RequestParam String nome) {
+        return pessoaRepository.findByNomeContainingIgnoreCase(nome);
     }
+
     @GetMapping("/find-by-cpf")
-    public PessoaEntity findByCpf(@RequestParam String cpf){
+    public PessoaEntity findByCpf(@RequestParam String cpf) {
         return (PessoaEntity) pessoaRepository.findByCpf(cpf);
     }
+
     @GetMapping("/find-by-data-de-nascimento")
-    public List<PessoaEntity> findByDataNascimentoBetween(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim ){
-        return  pessoaRepository.findByDataNascimentoBetween(inicio, fim);
+    public List<PessoaEntity> findByDataNascimentoBetween(@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio, @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim) {
+        return pessoaRepository.findByDataNascimentoBetween(inicio, fim);
+
+    }
+
+    @GetMapping("/pessoa-completo")
+    public List<PessoaEntity> getAll(@RequestParam Integer id) {
+        return pessoaRepository.findAll();
+    }
+
+    @GetMapping("/lista-by-contato")
+    public List<ContatoPessoaDTO> getByContato() {
+        return pessoaService.getByContato();
+    }
+
+    @GetMapping("/lista-by-endereco")
+    public List<EnderecoPessoaDTO> getByEndereco() {
+        return pessoaService.getByEndereco();
+    }
+
+    @GetMapping("/pessoa-com-endereco")
+    public List<PessoaEntity> pessoaEndereco() {
+        return pessoaRepository.pessoaComEndereco();
     }
 }

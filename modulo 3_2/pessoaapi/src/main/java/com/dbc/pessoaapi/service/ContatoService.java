@@ -9,6 +9,7 @@ import com.dbc.pessoaapi.entity.PessoaEntity;
 import com.dbc.pessoaapi.entity.TipoContato;
 import com.dbc.pessoaapi.exceptions.RegraDeNegocioException;
 import com.dbc.pessoaapi.repository.ContatoRepository;
+import com.dbc.pessoaapi.repository.PessoaRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.RequiredArgsConstructor;
@@ -27,14 +28,19 @@ public class ContatoService {
 
     private final ContatoRepository contatoRepository;
     private final ObjectMapper objectMapper;
+    private final PessoaRepository pessoaRepository;
 
 
-    public ContatoDTO create(ContatoCreateDTO contatoCreateDTO, Integer idPessoa) throws RegraDeNegocioException {
-        ContatoEntity contatoCriado = objectMapper.convertValue(contatoCreateDTO, ContatoEntity.class);
-        contatoCriado.setIdPessoa(idPessoa);
-        contatoRepository.save(contatoCriado);
-        ContatoDTO contatoDTO = objectMapper.convertValue(contatoCriado, ContatoDTO.class);
-        return contatoDTO;
+    public ContatoDTO create(Integer id, ContatoCreateDTO contatoCreateDTO) throws RegraDeNegocioException {
+        ContatoEntity contoEntity = objectMapper.convertValue(contatoCreateDTO, ContatoEntity.class);
+        PessoaEntity pessoaEntity = pessoaRepository.findById(id).stream()
+                .filter(x -> x.getIdPessoa().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new RegraDeNegocioException("Contato não encontrado"));
+        contoEntity.setPessoaEntity(pessoaEntity);
+        ContatoEntity atualizado = contatoRepository.save(contoEntity);
+        ContatoDTO dto = objectMapper.convertValue(atualizado, ContatoDTO.class);
+        return null;
     }
 
     public List<ContatoDTO> list(){
