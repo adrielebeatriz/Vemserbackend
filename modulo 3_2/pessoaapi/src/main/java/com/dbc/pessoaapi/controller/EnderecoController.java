@@ -83,11 +83,11 @@ public class EnderecoController {
         enderecoService.delete(id);
         log.info("Deletado com sucesso");
     }
-
-    @GetMapping("/endereco-por-pais")
-    public List<EnderecoEntity> enderecoByCountry(@RequestParam("pais") String pais){
-        return enderecoRepository.enderecoByCountry(pais.toLowerCase());
+    @GetMapping("/procura-por-pais")
+    public List<EnderecoEntity> enderecoByCountry(@RequestParam String pais) {
+        return enderecoRepository.enderecoByCountry(pais.toUpperCase());
     }
+
 
     @GetMapping("/endereco-por-pessoa")
     public List<EnderecoEntity> endercoByPerson(@RequestParam("idPessoa") Integer idPessoa){

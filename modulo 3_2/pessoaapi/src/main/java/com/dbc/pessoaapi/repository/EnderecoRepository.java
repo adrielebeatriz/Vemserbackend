@@ -13,7 +13,7 @@ public interface EnderecoRepository extends JpaRepository<EnderecoEntity,Integer
 
     @Query("select p " +
             " from ENDERECO_PESSOA p " +
-            "where p.pais = ?1 ")
+            "where upper(pais) = :pais ")
     List<EnderecoEntity> enderecoByCountry(String pais);
     @Query("select ep from ENDERECO_PESSOA ep " +
             "join ep.pessoas p where p.idPessoa = ?1")
