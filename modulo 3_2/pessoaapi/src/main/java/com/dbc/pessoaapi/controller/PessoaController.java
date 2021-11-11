@@ -119,7 +119,7 @@ public class PessoaController {
     }
 
     @GetMapping("/pessoa-com-endereco")
-    public List<PessoaEntity> pessoaEndereco() {
-        return pessoaRepository.pessoaComEndereco();
+    public List<PessoaEntity> EnderecoPessoa() {
+        return pessoaRepository.EnderecoPessoa();
     }
 }

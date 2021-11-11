@@ -17,7 +17,7 @@ public interface PessoaRepository extends JpaRepository<PessoaEntity, Integer> {
 
     @Query("select p from PESSOA p " +
             "left join p.enderecos e")
-    List<PessoaEntity> pessoaComEndereco();
+    List<PessoaEntity> EnderecoPessoa();
 
 
 }
