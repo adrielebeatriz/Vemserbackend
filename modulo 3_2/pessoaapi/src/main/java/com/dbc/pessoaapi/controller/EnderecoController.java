@@ -85,7 +85,7 @@ public class EnderecoController {
     }
     @GetMapping("/procura-por-pais")
     public List<EnderecoEntity> enderecoByCountry(@RequestParam String pais) {
-        return enderecoRepository.enderecoByCountry(pais.toUpperCase());
+        return enderecoRepository.enderecoByCountry(pais.toUpperCase(), pageable);
     }
 
 

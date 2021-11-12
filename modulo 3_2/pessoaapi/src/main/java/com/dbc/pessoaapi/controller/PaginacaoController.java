@@ -18,41 +18,35 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/paginacao")
 @RequiredArgsConstructor
 public  class PaginacaoController {
-
-    private final EnderecoRepository enderecoRepository;
     private final ContatoRepository contatoRepository;
-
-    @GetMapping("/listar-by-descricao")
-    public Page<ContatoEntity> listaPaginadaOrdenada(
+    private final EnderecoRepository enderecoRepository;
+    @GetMapping("/contato-orderby-descricao")
+    public Page<ContatoEntity> contatoOrdeByDescricao(
             @RequestParam Integer pagina,
             @RequestParam Integer quantidadeDeRegistrosPorPagina){
-        Pageable pageable = PageRequest.of(pagina,
-                quantidadeDeRegistrosPorPagina,
-                Sort.by("descricao")
-        );
-        Page<ContatoEntity> paginaDoBanco = contatoRepository.findAll( pageable);
+        Pageable pageable = PageRequest.of(pagina, quantidadeDeRegistrosPorPagina, Sort.by("descricao"));
+        Page<ContatoEntity> paginaDoBanco = contatoRepository.findAll(pageable);
         return paginaDoBanco;
     }
 
-    @GetMapping("/listar-endereco-order-by-cep")
-    public Page<EnderecoEntity> enderecoByCep(
+    @GetMapping("/lista-endereco-orderby-cep")
+    public Page<EnderecoEntity> enderecoOrderBYCep(
             @RequestParam Integer pagina,
             @RequestParam Integer quantidadeDeRegistrosPorPagina){
-        Pageable pageable = PageRequest.of(pagina,
-                quantidadeDeRegistrosPorPagina,
-                Sort.by("cep")
-        );
-        Page<EnderecoEntity> paginaDoBanco = enderecoRepository.findAll( pageable);
+        Pageable pageable = PageRequest.of(pagina, quantidadeDeRegistrosPorPagina, Sort.by("cep"));
+        Page<EnderecoEntity> paginaDoBanco = enderecoRepository.findAll(pageable);
         return paginaDoBanco;
     }
 
-    @GetMapping("/lista-por-pais-jpql")
-    public Page<EnderecoEntity> findByPaisPQL(
-            @RequestParam String pais,
+    @GetMapping("/lista-endereco-pais")
+    public Page<EnderecoEntity> enderecoByCountryPageable(
             @RequestParam Integer pagina,
-            @RequestParam(defaultValue = "2", required = false) Integer quantidadeDeRegistrosPorPagina) {
+            @RequestParam Integer quantidadeDeRegistrosPorPagina,
+            @RequestParam String pais)
+    {
         Pageable pageable = PageRequest.of(pagina, quantidadeDeRegistrosPorPagina);
-        Page<EnderecoEntity> paginaDoBanco = enderecoRepository.findByPaisPQL("%" + pais + "%", pageable);
+        Page<EnderecoEntity> paginaDoBanco = (Page<EnderecoEntity>) enderecoRepository.enderecoByCountry( pais, pageable);
         return paginaDoBanco;
     }
+
 }

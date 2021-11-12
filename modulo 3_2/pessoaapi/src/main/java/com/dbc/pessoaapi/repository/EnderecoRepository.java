@@ -16,7 +16,7 @@ public interface EnderecoRepository extends JpaRepository<EnderecoEntity,Integer
     @Query("select p " +
             " from ENDERECO_PESSOA p " +
             "where upper(pais) = :pais ")
-    List<EnderecoEntity> enderecoByCountry(String pais);
+    List<EnderecoEntity> enderecoByCountry(String pais, Pageable pageable);
     @Query("select ep from ENDERECO_PESSOA ep " +
             "join ep.pessoas p where p.idPessoa = ?1")
     List<EnderecoEntity> endercoByPerson(Integer idPessoa);
@@ -31,8 +31,9 @@ public interface EnderecoRepository extends JpaRepository<EnderecoEntity,Integer
 
     @Query(value = "select p from ENDERECO_PESSOA p where upper(p.cep) like upper(?1)")
     Page<EnderecoEntity> findByCepPQL(String cep, Pageable pageable);
+
     @Query("select p " +
-            " from ENDERECO_PESSOA p " +
-            "where upper(pais) = :pais ")
-    Page<EnderecoEntity> findByPaisPQL(String pais,Pageable pageable );
+            " from endereco_pessoa p " +
+            "where upper(pais) = upper(:pais) ")
+    Page<EnderecoEntity> enderecoByCountryPageable(String pais, Pageable pageable);
 }
