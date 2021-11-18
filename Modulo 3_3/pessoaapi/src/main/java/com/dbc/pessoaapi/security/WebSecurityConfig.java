@@ -3,6 +3,7 @@ package com.dbc.pessoaapi.security;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
 
 @Configuration
 @EnableWebSecurity
@@ -30,13 +32,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().frameOptions().disable().and().cors().and()
                 .csrf().disable()
                 .authorizeRequests()
+
                 .antMatchers("/").permitAll()
                 .antMatchers("/auth").permitAll()
+                .antMatchers("/auth/create").hasRole("ADMIN")
 //                .antMatchers("/contato").permitAll()
+                // =
+//                .antMatchers("/", "/auth", "/contato").permitAll()
+
+
+                .antMatchers(HttpMethod.GET,"/pessoa/**", "/contato/**", "/endereco/**" ).hasAnyRole("MARKETING", "USUARIO", "ADMIN")
+
+                .antMatchers("/pessoa/**", "/contato/**", "/endereco/**").hasAnyRole("USUARIO","ADMIN" )
+
+
+                .antMatchers("/**").hasRole("ADMIN")
+
+
+
 
                 .anyRequest().authenticated()
 
-                //filtro de autenticação...
+
                 .and().addFilterBefore(new TokenAuthenticationFilter(tokenService), UsernamePasswordAuthenticationFilter.class);
     }
 
@@ -54,3 +71,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManager();
     }
 }
+

@@ -6,12 +6,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+
 
 @Getter
 @Setter
 @Entity(name = "USUARIO")
-public class UsuarioEntity  implements UserDetails {
+public class UsuarioEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "USUARIO_SEQUENCIA")
     @SequenceGenerator(name = "USUARIO_SEQUENCIA", sequenceName = "seq_usuario", allocationSize = 1)
@@ -20,22 +23,35 @@ public class UsuarioEntity  implements UserDetails {
 
     @Column(name = "login")
     private String login;
-    
+
     @Column(name = "senha")
     private String senha;
+
+    @ManyToMany
+    @JoinTable(
+            name = "USUARIO_GRUPO",
+            joinColumns = @JoinColumn(name = "id_usuario"),
+            inverseJoinColumns = @JoinColumn(name = "id_grupo")
+    )
+    private List<GrupoEntity> grupos;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (GrupoEntity grupoEntity : grupos) {
+            grantedAuthorities.addAll(grupoEntity.getRegras());
+        }
+        return grantedAuthorities;
     }
 
     @Override
     public String getPassword() {
-        return senha;
+        return this.senha;
     }
 
     @Override
     public String getUsername() {
-        return login;
+        return this.login;
     }
 
     @Override
