@@ -1,0 +1,41 @@
+db.restaurantE.insertOne(
+    {
+        "cliente" : "adriele", 
+        "data_nascimento" : new Date (1998,03,30),
+	"cpf" : "12345698752"
+    }
+)
+{ acknowledged: true,
+  insertedId: ObjectId("619bfcd934c13f8aa95e31da") }
+
+db.restaurantE.insertOne(
+    {
+        "cliente" : "Camile", 
+        "data_nascimento" : new Date (1995,03,20),
+	"cpf" : "25846781237"
+    }
+)
+{ acknowledged: true,
+  insertedId: ObjectId("619bfe6734c13f8aa95e31db") }
+
+db.restaurantE.insertOne(
+    {
+        "cliente" : "Daniel", 
+        "data_nascimento" : new Date (1953,05,20),
+	"cpf" : "258467812358"
+    }
+)
+
+{ acknowledged: true,
+  insertedId: ObjectId("619bfea234c13f8aa95e31dc") }
+
+
+db.restaurantE.find({ "cliente" : "Daniel" })
+{ _id: ObjectId("619bfea234c13f8aa95e31dc"),
+  cliente: 'Daniel',
+  data_nascimento: 1953-06-20T03:00:00.000Z,
+  cpf: '258467812358' }
+
+
+db.restaurantE.deleteOne({"cliente" : "Camile"})
+{ acknowledged: true, deletedCount: 1 }
