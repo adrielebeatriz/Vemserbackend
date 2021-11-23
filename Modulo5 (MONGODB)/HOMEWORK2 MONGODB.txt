@@ -23,7 +23,16 @@ db.restaurantE.find( { cpf: 267845698744 } )
   data_nascimento: 1993-02-27T03:00:00.000Z,
   cpf: 267845698744,
   status: 'A' }
-
+  
+  
+Find AND:
+db.restaurantE.find( { cpf: 267845698744, status: "A"}  )
+{ _id: ObjectId("619d445734c13f8aa95e31f2"),
+  cliente: 'Rafael',
+  data_nascimento: 1993-02-27T03:00:00.000Z,
+  cpf: 267845698744,
+  status: 'A' }
+  
 
 db.restaurantE.find( { status: "F" } )
 { _id: ObjectId("619d445734c13f8aa95e31f3"),
@@ -63,7 +72,9 @@ db.restaurantE.find({
   data_nascimento: 1990-02-27T03:00:00.000Z,
   cpf: 277896541266,
   status: 'F' }
-
+  
+  
+Find Expressão
 db.restaurantE.find({
     "cliente": /^ad/ 
 })
@@ -73,7 +84,7 @@ db.restaurantE.find({
   cpf: 2778965412
 
 
-
+Find OR / IN
 db.restaurantE.find({
  status: { $in: [ "A", "F" ] } 
 
