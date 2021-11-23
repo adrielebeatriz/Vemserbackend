@@ -38,13 +38,31 @@ db.restaurantE.find( { status: "F" } )
   status: 'F' }
 
 db.restaurantE.find({
-    "cliente" : "Adriele",
     $or : [
         {status : "F"},
-        {"cpf" : 267845698755}
+        {status : "A"}
         
     ]
  })
+{ _id: ObjectId("619d445734c13f8aa95e31f1"),
+  data_nascimento: 1994-02-27T03:00:00.000Z,
+  cpf: 277896541233,
+  status: 'A' }
+{ _id: ObjectId("619d445734c13f8aa95e31f2"),
+  cliente: 'Rafael',
+  data_nascimento: 1993-02-27T03:00:00.000Z,
+  cpf: 267845698744,
+  status: 'A' }
+{ _id: ObjectId("619d445734c13f8aa95e31f3"),
+  cliente: 'ezequiel',
+  data_nascimento: 1992-02-27T03:00:00.000Z,
+  cpf: 267845698755,
+  status: 'F' }
+{ _id: ObjectId("619d445734c13f8aa95e31f4"),
+  cliente: 'adriele',
+  data_nascimento: 1990-02-27T03:00:00.000Z,
+  cpf: 277896541266,
+  status: 'F' }
 
 db.restaurantE.find({
     "cliente": /^ad/ 
