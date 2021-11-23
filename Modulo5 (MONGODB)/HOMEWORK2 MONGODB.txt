@@ -1,0 +1,106 @@
+INSERTS:
+db.restaurantE.insertMany([
+  { "cliente": "Daniel", "data_nascimento": new Date (1994,01,27), "cpf": 277896541233,   "status": "A"},
+  { "cliente": "Maicon", "data_nascimento": new Date (1993,01,27), "cpf": 267845698744,   "status": "A"},
+  { "cliente": "ezequiel", "data_nascimento": new Date (1992,01,27), "cpf": 267845698755,  "status": "F"},
+  { "cliente": "adriele", "data_nascimento": new Date (1990,01,27), "cpf": 277896541266,    "status": "F"}
+])
+{ acknowledged: true,
+  insertedIds: 
+   { '0': ObjectId("619d445734c13f8aa95e31f1"),
+     '1': ObjectId("619d445734c13f8aa95e31f2"),
+     '2': ObjectId("619d445734c13f8aa95e31f3"),
+     '3': ObjectId("619d445734c13f8aa95e31f4") } }
+
+
+
+
+
+FINDS:
+db.restaurantE.find( { cpf: 267845698744 } )
+{ _id: ObjectId("619d445734c13f8aa95e31f2"),
+  cliente: 'Maicon',
+  data_nascimento: 1993-02-27T03:00:00.000Z,
+  cpf: 267845698744,
+  status: 'A' }
+
+
+db.restaurantE.find( { status: "F" } )
+{ _id: ObjectId("619d445734c13f8aa95e31f3"),
+  cliente: 'ezequiel',
+  data_nascimento: 1992-02-27T03:00:00.000Z,
+  cpf: 267845698755,
+  status: 'F' }
+{ _id: ObjectId("619d445734c13f8aa95e31f4"),
+  cliente: 'adriele',
+  data_nascimento: 1990-02-27T03:00:00.000Z,
+  cpf: 277896541266,
+  status: 'F' }
+
+db.restaurantE.find({
+    "cliente" : "Adriele",
+    $or : [
+        {status : "F"},
+        {"cpf" : 267845698755}
+        
+    ]
+ })
+
+db.restaurantE.find({
+    "cliente": /^ad/ 
+})
+{ _id: ObjectId("619d445734c13f8aa95e31f4"),
+  cliente: 'adriele',
+  data_nascimento: 1990-02-27T03:00:00.000Z,
+  cpf: 2778965412
+
+
+
+db.restaurantE.find({
+ status: { $in: [ "A", "F" ] } 
+
+})
+{ _id: ObjectId("619d445734c13f8aa95e31f1"),
+  data_nascimento: 1994-02-27T03:00:00.000Z,
+  cpf: 277896541233,
+  status: 'A' }
+{ _id: ObjectId("619d445734c13f8aa95e31f2"),
+  cliente: 'Rafael',
+  data_nascimento: 1993-02-27T03:00:00.000Z,
+  cpf: 267845698744,
+  status: 'A' }
+{ _id: ObjectId("619d445734c13f8aa95e31f3"),
+  cliente: 'ezequiel',
+  data_nascimento: 1992-02-27T03:00:00.000Z,
+  cpf: 267845698755,
+  status: 'F' }
+{ _id: ObjectId("619d445734c13f8aa95e31f4"),
+  cliente: 'adriele',
+  data_nascimento: 1990-02-27T03:00:00.000Z,
+  cpf: 277896541266,
+  status: 'F' }
+
+UPDATE:
+db.restaurantE.updateOne(
+   { cliente: "Maicon" },
+   {
+     $set: { "cliente": "Rafael", status: "A" }           
+   }
+)
+{ acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0 }
+
+
+db.restaurantE.updateOne({}, {
+    $unset: {
+        cliente: "ezequeiel"
+    }
+})
+{ acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0 }
