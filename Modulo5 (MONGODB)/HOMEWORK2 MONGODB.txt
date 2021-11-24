@@ -1,3 +1,5 @@
+
+colecction 1:
 INSERTS:
 db.restaurantE.insertMany([
   { "cliente": "Daniel", "data_nascimento": new Date (1994,01,27), "cpf": 277896541233,   "status": "A"},
@@ -16,14 +18,23 @@ db.restaurantE.insertMany([
 
 
 
-FINDS:
+FINDS EQUALS:
 db.restaurantE.find( { cpf: 267845698744 } )
 { _id: ObjectId("619d445734c13f8aa95e31f2"),
   cliente: 'Maicon',
   data_nascimento: 1993-02-27T03:00:00.000Z,
   cpf: 267845698744,
   status: 'A' }
-
+  
+  
+Find AND:
+db.restaurantE.find( { cpf: 267845698744, status: "A"}  )
+{ _id: ObjectId("619d445734c13f8aa95e31f2"),
+  cliente: 'Rafael',
+  data_nascimento: 1993-02-27T03:00:00.000Z,
+  cpf: 267845698744,
+  status: 'A' }
+  
 
 db.restaurantE.find( { status: "F" } )
 { _id: ObjectId("619d445734c13f8aa95e31f3"),
@@ -63,7 +74,9 @@ db.restaurantE.find({
   data_nascimento: 1990-02-27T03:00:00.000Z,
   cpf: 277896541266,
   status: 'F' }
-
+  
+  
+Find Expressão
 db.restaurantE.find({
     "cliente": /^ad/ 
 })
@@ -73,7 +86,7 @@ db.restaurantE.find({
   cpf: 2778965412
 
 
-
+Find OR / IN
 db.restaurantE.find({
  status: { $in: [ "A", "F" ] } 
 
@@ -122,3 +135,132 @@ db.restaurantE.updateOne({}, {
   matchedCount: 1,
   modifiedCount: 1,
   upsertedCount: 0 }
+  
+  
+  
+  colecction 2:
+  
+  INSERTS:
+  db.ContatoCliente.insertMany([
+  { "cliente": "Daniel", "email": "daniel@gmail.com", "numero": 71987450756,   "status": "A"},
+  { "cliente": "Maicon", "email": "maicon@gmail.com", "numero": 21987150756,   "status": "A"},
+  { "cliente": "ezequiel","email": "ezequiel@gmail.com ","numero": 11987160758,  "status": "F"},
+  { "cliente": "adriele", "email": "adriele@gmail.com", "numero": 71987130896,    "status": "F"}
+])
+{ acknowledged: true,
+  insertedIds: 
+   { '0': ObjectId("619d56de34c13f8aa95e31f5"),
+     '1': ObjectId("619d56de34c13f8aa95e31f6"),
+     '2': ObjectId("619d56de34c13f8aa95e31f7"),
+     '3': ObjectId("619d56de34c13f8aa95e31f8") } }
+     
+     FIND EQUALS:
+     db.ContatoCliente.find( { email: 
+"adriele@gmail.com"} )
+{ _id: ObjectId("619d56de34c13f8aa95e31f8"),
+  cliente: 'adriele',
+  email: 'adriele@gmail.com',
+  numero: 71987130896,
+  status: 'F' }
+     
+     FIND AND:
+     db.ContatoCliente.find( { numero: 71987450756, status: "A"}  )
+{ _id: ObjectId("619d56de34c13f8aa95e31f5"),
+  cliente: 'Daniel',
+  email: 'daniel@gmail.com',
+  numero: 71987450756,
+  status: 'A' }
+  
+  db.ContatoCliente.find({
+    $or : [
+        {status : "F"},
+        {status : "A"}
+        
+    ]
+ })
+{ _id: ObjectId("619d56de34c13f8aa95e31f5"),
+  cliente: 'Daniel',
+  email: 'daniel@gmail.com',
+  numero: 71987450756,
+  status: 'A' }
+{ _id: ObjectId("619d56de34c13f8aa95e31f6"),
+  cliente: 'Maicon',
+  email: 'maicon@gmail.com',
+  numero: 21987150756,
+  status: 'A' }
+{ _id: ObjectId("619d56de34c13f8aa95e31f7"),
+  cliente: 'ezequiel',
+  email: 'ezequiel@gmail.com ',
+  numero: 11987160758,
+  status: 'F' }
+{ _id: ObjectId("619d56de34c13f8aa95e31f8"),
+  cliente: 'adriele',
+  email: 'adriele@gmail.com',
+  numero: 71987130896,
+  status: 'F' }
+  
+  
+  FIND EXPRESSÃO:
+  
+  db.ContatoCliente.find({
+    "cliente": /^ad/ 
+})
+{ _id: ObjectId("619d56de34c13f8aa95e31f8"),
+  cliente: 'adriele',
+  email: 'adriele@gmail.com',
+  numero: 71987130896,
+  status: 'F' }
+  
+FIND OR / IN
+
+db.ContatoCliente.find({
+ status: { $in: [ "A", "F" ] } 
+
+})
+{ _id: ObjectId("619d56de34c13f8aa95e31f5"),
+  cliente: 'Daniel',
+  email: 'daniel@gmail.com',
+  numero: 71987450756,
+  status: 'A' }
+{ _id: ObjectId("619d56de34c13f8aa95e31f6"),
+  cliente: 'Maicon',
+  email: 'maicon@gmail.com',
+  numero: 21987150756,
+  status: 'A' }
+{ _id: ObjectId("619d56de34c13f8aa95e31f7"),
+  cliente: 'ezequiel',
+  email: 'ezequiel@gmail.com ',
+  numero: 11987160758,
+  status: 'F' }
+{ _id: ObjectId("619d56de34c13f8aa95e31f8"),
+  cliente: 'adriele',
+  email: 'adriele@gmail.com',
+  numero: 71987130896,
+  status: 'F' }
+  
+  UPDATE:
+  
+  db.ContatoCliente.updateOne(
+   { cliente: "Maicon" },
+   {
+     $set: { "cliente": "Rafael", status: "A" }           
+   })
+{ acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0 }
+  
+  
+  
+  db.ContatoCliente.updateOne({}, {
+    $unset: {
+        cliente: "ezequeiel"
+    }
+})
+{ acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0 }
+  
