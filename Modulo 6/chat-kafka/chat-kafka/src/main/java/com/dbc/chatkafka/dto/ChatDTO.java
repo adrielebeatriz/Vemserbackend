@@ -16,6 +16,6 @@ public class ChatDTO {
     @NotNull
     private String mensagem;
     @NotNull
-    private LocalDateTime dataAtual;
+    private LocalDateTime dataCriacao;
 
 }

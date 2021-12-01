@@ -1,6 +1,7 @@
 package com.dbc.chatkafka.kafka;
 
 import com.dbc.chatkafka.dto.ChatDTO;
+import com.dbc.chatkafka.dto.ListChatDTO;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -52,9 +53,12 @@ public class Producer {
         send(payload,topicoGeral);
     }
 
-    public void sendMessagePrivado(ChatDTO chatDTO, String topico) throws JsonProcessingException {
-        String payload = objectMapper.writeValueAsString(chatDTO);
-        send(payload, topico);
+    public void sendMessagePrivado(ListChatDTO chatDTO) throws JsonProcessingException {
+        for(String usuario : chatDTO.getNomeUsuario()) {
+            String topico = "chat-"+usuario;
+            String payload = objectMapper.writeValueAsString(chatDTO.getChatDTO());
+            send(payload, topico);
+        }
     }
 
 }

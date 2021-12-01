@@ -1,6 +1,7 @@
 package com.dbc.chatkafka.controller;
 
 import com.dbc.chatkafka.dto.ChatDTO;
+import com.dbc.chatkafka.dto.ListChatDTO;
 import com.dbc.chatkafka.kafka.Producer;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +20,8 @@ public class ChatController {
     }
 
     @PostMapping("/enviarMensagemPrivada")
-    public void enviarMensagemPrivada(@RequestBody ChatDTO chatDTO, @RequestParam (value = "topico")String topico) throws JsonProcessingException {
-        producer.sendMessagePrivado(chatDTO,topico);
+    public void enviarMensagemPrivada(@RequestBody ListChatDTO chatDTO) throws JsonProcessingException {
+        producer.sendMessagePrivado(chatDTO);
     }
 
 

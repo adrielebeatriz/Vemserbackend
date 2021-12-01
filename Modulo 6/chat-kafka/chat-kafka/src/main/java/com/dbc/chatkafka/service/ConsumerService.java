@@ -13,6 +13,7 @@ import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
@@ -27,16 +28,33 @@ public class ConsumerService {
     @KafkaListener(
             topics = "${kafka.topic.geral}",
             groupId = "${kafka.group-id}",
-            containerFactory = "listenerContainerFactory"
+            containerFactory = "listenerContainerFactory",
+            clientIdPrefix = "primeiro"
     )
-    public void consume(@Payload String mensagem,
+    public void ConsumerMensagemGeral(@Payload String mensagem,
                         @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
                         @Header(KafkaHeaders.OFFSET) Long offset) throws JsonProcessingException {
-         ChatDTO = objectMapper.readValue(mensagem, ChatDTO.class);
-        log.info("MENSAGEM LIDA: '{}', CHAVE: '{}', OFFSET: '{}'", chatDTO, key, offset);
+         ChatDTO  chatDTO = objectMapper.readValue(mensagem, ChatDTO.class);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        log.info("DATA CRIAÇÃO: '{}', USUARIO: '{}', MENSAGEM: '{}'",
+                formatter.format(chatDTO.getDataCriacao()), chatDTO.getUsuario(), chatDTO.getMensagem());
 
     }
 
+    @KafkaListener(
+            topics = "${kafka.topic.privado}",
+            groupId = "${kafka.group-id}",
+            containerFactory = "listenerContainerFactory",
+            clientIdPrefix = "segundo"
+    )
+    public void ConsumerMensagemPrivada(@Payload String mensagem,
+                                      @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
+                                      @Header(KafkaHeaders.OFFSET) Long offset) throws JsonProcessingException {
+        ChatDTO  chatDTO = objectMapper.readValue(mensagem, ChatDTO.class);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        log.info("DATA CRIAÇÃO: '{}', USUARIO: '{}', MENSAGEM PRIAVADA: '{}'",
+                formatter.format(chatDTO.getDataCriacao()) , chatDTO.getUsuario(), chatDTO.getMensagem());
+    }
 
 
 
