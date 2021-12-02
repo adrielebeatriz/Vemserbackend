@@ -1,9 +1,12 @@
 package com.dbc.pessoaapi.scheduler;
 
+import com.dbc.pessoaapi.dto.EmailDTO;
 import com.dbc.pessoaapi.dto.PessoaDTO;
 import com.dbc.pessoaapi.entity.PessoaEntity;
+import com.dbc.pessoaapi.kafka.Producer;
 import com.dbc.pessoaapi.repository.PessoaRepository;
 import com.dbc.pessoaapi.service.EmailService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ public class MeuNovoSchedulerCron {
             = new SimpleDateFormat("HH:mm:ss");
     private final PessoaRepository pessoaRepository;
 
+    private final Producer producer;
     private final EmailService emailService;
     private final ObjectMapper objectMapper;
 
@@ -39,11 +43,21 @@ public class MeuNovoSchedulerCron {
             emailService.enviarEmailComTemplatePessoaSemEndereco(pessoaDTO);
         }
     }
-    @Scheduled(cron = "0 44 18 * * *", zone = "GMT-3")
+    @Scheduled(cron = "0 0 0 23 12 *", zone = "GMT-3")
     public void meuSegundoScheduler() throws InterruptedException {
         List<PessoaEntity> todasAsPessoas  = pessoaRepository.findAll();
         for (PessoaEntity pessoa: todasAsPessoas) {
             emailService.enviarEmailChristmans(pessoa);
         }
+
     }
+    @Scheduled(cron = "0 05 9 * * *", zone = "GMT-3")
+    public void schedulerKafka() throws InterruptedException, JsonProcessingException {
+        EmailDTO emailDTO = new EmailDTO();
+        emailDTO.setAssunto("Homework");
+        emailDTO.setDestinatario("adriele.beatriz98@outlook.com");
+        emailDTO.setTexto("Teste homework");
+        producer.sendMessageDTO(emailDTO);
+        }
+
 }

@@ -1,6 +1,7 @@
 package com.dbc.pessoaapi.service;
 
 import com.dbc.pessoaapi.controller.PessoaController;
+import com.dbc.pessoaapi.dto.EmailDTO;
 import com.dbc.pessoaapi.dto.PessoaDTO;
 import com.dbc.pessoaapi.dto.PessoaEnderecoDTO;
 import com.dbc.pessoaapi.entity.PessoaEntity;
@@ -69,6 +70,16 @@ public class EmailService {
                 "\n\nAproveite..." +
                 "\nMagazine OldSchool");
         emailSender.send(message);
+    }
+    public EmailDTO enviarEmailComTemplateScheduleKafka(PessoaEntity pessoaEntity) {
+        EmailDTO emailKafkaDTO = new EmailDTO();
+        emailKafkaDTO.setDestinatario(pessoaEntity.getEmail());
+        emailKafkaDTO.setAssunto("Atualize seu cadastro!");
+        emailKafkaDTO.setTexto("Olá " +pessoaEntity.getNome()+ ", <br><br>" +
+                "Estamos muito felizes que você está em nosso sistema. Para que possamos enviá-lo um brinde" +
+                " exclusivo, por gentileza, adicione ou atualize o seu endereço no seu cadastro.");
+
+        return emailKafkaDTO;
     }
 
 }

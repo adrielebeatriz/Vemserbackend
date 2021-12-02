@@ -27,18 +27,19 @@ public class ConsumerService {
 
 
     @KafkaListener(
-            topics = "${kafka.topic.geral}",
+            topics = "${kafka.topic.email}",
             groupId = "${kafka.group-id}",
             containerFactory = "listenerContainerFactory"
     )
     public void consumeGeral(@Payload String mensagem,
-                           @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
-                           @Header(KafkaHeaders.OFFSET) Long offset) throws IOException, MessagingException, TemplateException {
-        EmailDTO emailDTO = objectMapper.readValue(mensagem, EmailDTO.class);
-        emailService.enviaEmail(emailDTO);
-        log.info("{} [{}] {}", emailDTO.getAssunto(), emailDTO.getDestinatario(), emailDTO.getTexto());
+                             @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
+                             @Header(KafkaHeaders.OFFSET) Long offset) throws IOException, MessagingException, TemplateException {
+        EmailDTO emailKafkaDTO = objectMapper.readValue(mensagem, EmailDTO.class);
+        emailService.enviaEmail(emailKafkaDTO);
+        log.info("MENSAGEM LIDA: '{}', CHAVE: '{}', OFFSET: '{}'", emailKafkaDTO, key, offset);
+    }
 
     }
 
 
-}
+

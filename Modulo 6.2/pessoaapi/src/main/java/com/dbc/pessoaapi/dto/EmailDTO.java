@@ -9,8 +9,8 @@ import javax.validation.constraints.Size;
 @Data
 public class EmailDTO {
 
-    @NotNull(message = "não pode ser null")
-    @NotEmpty(message = "não pode ser vazio")
+//    @NotNull(message = "não pode ser null")
+//    @NotEmpty(message = "não pode ser vazio")
     private String destinatario;
 
     @NotNull(message = "não pode ser null")

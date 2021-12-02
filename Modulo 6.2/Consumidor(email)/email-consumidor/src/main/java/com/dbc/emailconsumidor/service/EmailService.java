@@ -29,23 +29,17 @@ public class EmailService {
     private final Configuration configuration;
 
 
+
     public EmailDTO enviaEmail(EmailDTO emailDTO) throws MessagingException, IOException, TemplateException, TemplateException {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
         helper.setFrom(remetente);
         helper.setTo(emailDTO.getDestinatario());
-        helper.setSubject("Usuario cadastrado");
-        Template template = configuration.getTemplate("email-template.ftl");
-        Map<String, Object> dados = new HashMap<>();
-        dados.put("Destinatario", emailDTO.getDestinatario());
-        dados.put("Assunto", emailDTO.getAssunto());
-        dados.put("Texto", emailDTO.getTexto());
-
-        String html = FreeMarkerTemplateUtils.processTemplateIntoString(template, dados);
-        helper.setText(html, true);
+        helper.setSubject(emailDTO.getAssunto());
+        helper.setText(emailDTO.getTexto(), true);
         emailSender.send(mimeMessage);
+
         return emailDTO;
     }
-
 }
 

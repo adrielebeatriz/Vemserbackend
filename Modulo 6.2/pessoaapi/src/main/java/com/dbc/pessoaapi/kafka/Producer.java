@@ -25,8 +25,8 @@ public class Producer {
     private final KafkaTemplate<String, String> stringKafkaTemplate;
     private final ObjectMapper objectMapper;
 
-    @Value(value = "${kafka.topic.geral}")
-    private String topicoGeral;
+    @Value(value = "${kafka.topic.email}")
+    private String topicoEmail;
 
     private void send(String mensagem, String topico) {
         Message<String> message = MessageBuilder.withPayload(mensagem)
@@ -47,13 +47,13 @@ public class Producer {
                 log.info(" Mensagem enviada com sucesso para o kafka com o texto: {}", mensagem);
             }
         });
-    }
+ }
 
 
-    public void sendMessageDTO(EmailDTO enviaEmailDTO) throws JsonProcessingException {
-        String payload = objectMapper.writeValueAsString(enviaEmailDTO);
-        send(payload, topicoGeral);
-    }
+        public void sendMessageDTO(EmailDTO emailKafkaDTO) throws JsonProcessingException {
+            String payload = objectMapper.writeValueAsString(emailKafkaDTO);
+            send(payload, topicoEmail);
+        }
 
 
 }
