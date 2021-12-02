@@ -34,12 +34,12 @@ public class ConsumerService {
     public void consumeGeral(@Payload String mensagem,
                              @Header(KafkaHeaders.RECEIVED_MESSAGE_KEY) String key,
                              @Header(KafkaHeaders.OFFSET) Long offset) throws IOException, MessagingException, TemplateException {
-        EmailDTO emailKafkaDTO = objectMapper.readValue(mensagem, EmailDTO.class);
-        emailService.enviaEmail(emailKafkaDTO);
-        log.info("MENSAGEM LIDA: '{}', CHAVE: '{}', OFFSET: '{}'", emailKafkaDTO, key, offset);
-    }
+        EmailDTO enviaEmailDTO = objectMapper.readValue(mensagem, EmailDTO.class);
+        emailService.enviaEmail(enviaEmailDTO);
+
+        log.info("{} [{}] {}", enviaEmailDTO.getAssunto(), enviaEmailDTO.getDestinatario(), enviaEmailDTO.getTexto());
 
     }
 
 
-
+}

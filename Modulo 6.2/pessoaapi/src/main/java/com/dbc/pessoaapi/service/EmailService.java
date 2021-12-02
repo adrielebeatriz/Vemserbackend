@@ -37,7 +37,7 @@ public class EmailService {
 
 
 
-    public void enviarEmailComTemplatePessoaSemEndereco(PessoaDTO pessoaDTO) throws MessagingException, IOException, TemplateException {
+    public void enviarEmailComTemplatePessoaSemEndereco(PessoaDTO pessoaDTO, String s) throws MessagingException, IOException, TemplateException {
         MimeMessage mimeMessage = emailSender.createMimeMessage();
 
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);
@@ -57,7 +57,7 @@ public class EmailService {
         emailSender.send(mimeMessage);
     }
 
-    public void enviarEmailChristmans(PessoaEntity pessoaEntity) {
+    public void enviarEmailChristmans(PessoaEntity pessoaEntity, String s) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(remetente);
         message.setTo(pessoaEntity.getEmail());

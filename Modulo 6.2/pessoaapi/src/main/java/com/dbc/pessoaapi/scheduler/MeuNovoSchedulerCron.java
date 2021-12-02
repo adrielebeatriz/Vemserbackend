@@ -3,6 +3,7 @@ package com.dbc.pessoaapi.scheduler;
 import com.dbc.pessoaapi.dto.EmailDTO;
 import com.dbc.pessoaapi.dto.PessoaDTO;
 import com.dbc.pessoaapi.entity.PessoaEntity;
+import com.dbc.pessoaapi.kafka.KafkaEmail;
 import com.dbc.pessoaapi.kafka.Producer;
 import com.dbc.pessoaapi.repository.PessoaRepository;
 import com.dbc.pessoaapi.service.EmailService;
@@ -27,7 +28,7 @@ public class MeuNovoSchedulerCron {
     private static final SimpleDateFormat dateFormat
             = new SimpleDateFormat("HH:mm:ss");
     private final PessoaRepository pessoaRepository;
-
+    private final KafkaEmail  kafkaEmail;
     private final Producer producer;
     private final EmailService emailService;
     private final ObjectMapper objectMapper;
@@ -40,14 +41,14 @@ public class MeuNovoSchedulerCron {
         for(PessoaEntity pessoa : pessoaEntities){
             System.out.println(pessoa.getIdPessoa());
             PessoaDTO pessoaDTO = objectMapper.convertValue(pessoa, PessoaDTO.class);
-            emailService.enviarEmailComTemplatePessoaSemEndereco(pessoaDTO);
+            emailService.enviarEmailComTemplatePessoaSemEndereco(pessoaDTO,"email-template.ftl");
         }
     }
-    @Scheduled(cron = "0 0 0 23 12 *", zone = "GMT-3")
-    public void meuSegundoScheduler() throws InterruptedException {
+    @Scheduled(cron = "0 10-15 14,17 * * *", zone = "GMT-3")
+    public void meuSegundoScheduler() throws InterruptedException, MessagingException, TemplateException, IOException {
         List<PessoaEntity> todasAsPessoas  = pessoaRepository.findAll();
         for (PessoaEntity pessoa: todasAsPessoas) {
-            emailService.enviarEmailChristmans(pessoa);
+            kafkaEmail.enviaKafka(pessoa,"email-template.ftl");;
         }
 
     }
